@@ -1,0 +1,92 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f8f9fa;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    background: #343a40;
+    color: #fff;
+    flex-shrink: 0;
+    position: fixed;
+    height: 100vh;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .border-bottom {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sidebar ul li {
+    list-style: none;
+}
+
+.sidebar ul li a {
+    color: #adb5bd;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul li a i {
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: #495057;
+    color: #ffffff;
+}
+
+.content {
+    width: calc(100% - 250px); /* Lebar normal konten */
+    margin-left: 250px;
+    transition: all 0.3s ease;
+}
+
+.sidebar.collapsed ~ .content {
+    width: calc(100% - 70px); /* Lebar konten saat sidebar kecil */
+    margin-left: 70px;
+}
+
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar.collapsed ul li a span {
+    display: none;
+}
+
+.sidebar.collapsed ul li a i {
+    margin-right: 0;
+}
+
+.footer {
+    background: #212529;
+    transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .footer small {
+    display: none; /* Sembunyikan teks */
+}
+
+.sidebar.collapsed .footer {
+    text-align: center;
+    padding: 5px; /* Kurangi padding */
+}
