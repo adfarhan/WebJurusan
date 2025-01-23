@@ -1,39 +1,25 @@
 <nav class="navbar navbar-expand-lg ultra-modern-navbar">
     <div class="container">
-        <!-- Logo and Brand Text -->
         <a class="navbar-brand" href="#">
             <img src="assets/img/logo.png" alt="Logo" width="50" height="50" class="navbar-logo">
             <span class="brand-text">SMKN 1 KAWALI</span>
         </a>
-        <!-- Toggler Button for Mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- Navbar Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('beranda') }}">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Tentang</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Kurikulum</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Kegiatan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Alumni</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Kontak</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('beranda') }}">Beranda</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('tentang') }}">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('kurikulum') }}">Kurikulum</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('kegiatan') }}">Kegiatan</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('alumnis') }}">Alumni</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('kontak') }}">Kontak</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
 
 <style>
 /* Ultra Modern Navbar with White Theme */
@@ -41,16 +27,16 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: #ffffff; /* White background */
+    background: #fff; /* White background */
     color: #6c757d; /* Gray text */
-    padding: 15px 20px;
+    padding: 10px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
 }
 
 /* Scrolled Navbar Effect */
 .ultra-modern-navbar.scrolled {
-    background: #f8f9fa; /* Light gray background when scrolled */
+    background: #fff; /* Light gray background when scrolled */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -120,37 +106,53 @@
 }
 
 .ultra-modern-navbar .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236c757d' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%25283, 3, 3, 0.5%2529' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     width: 30px;
     height: 30px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsiveness Adjustments */
+@media (max-width: 992px) {
     .ultra-modern-navbar .navbar-brand {
-        font-size: 18px;
+        font-size: 18px; /* Ukuran font lebih kecil */
     }
 
     .ultra-modern-navbar .nav-link {
-        font-size: 14px;
+        font-size: 14px; /* Ukuran font lebih kecil */
         padding: 8px 10px;
     }
 
     .ultra-modern-navbar .nav-item {
-        margin-left: 10px; /* Less space on smaller screens */
+        margin-left: 10px; /* Kurangi margin antar item */
+    }
+
+    .ultra-modern-navbar .navbar-toggler-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .ultra-modern-navbar .navbar-collapse {
+        background: #ffffff; /* Warna latar belakang dropdown */
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .ultra-modern-navbar .nav-item {
+        text-align: center;
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .ultra-modern-navbar .navbar-brand {
+        font-size: 16px; /* Ukuran lebih kecil untuk layar sangat kecil */
+    }
+
+    .ultra-modern-navbar .nav-link {
+        font-size: 12px; /* Kurangi ukuran font */
     }
 }
 </style>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const navbar = document.querySelector(".ultra-modern-navbar");
-        window.addEventListener("scroll", function () {
-            if (window.scrollY > 50) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
-        });
-    });
-</script>
+

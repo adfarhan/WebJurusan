@@ -1,23 +1,32 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-        <section class="mb-5">
+        <section class="awalan-beranda mb-5">
             <div>
                 <div class="image-container">
                     <img src="assets/img/gedungrpl.jpg" alt="Deskripsi Gambar" class="img-fluid w-100">
-        
                     <div class="overlay"></div>
                 </div>
         
-                <div class="text-center text-white position-absolute top-50 start-50 translate-middle">
-                    <h1>Halo semuanya!</h1>
-                    <p>Selamat datang di halaman beranda kami. Kami senang Anda ada di sini!</p>
+                <div class="teks-beranda text-center  text-white position-absolute top-50 start-50 translate-middle">
+                    <h1 class="display-3 fw-bold animate__animated animate__fadeIn">
+                        Selamat datang di Jurusan <span style="color: #fde616; font-style: italic;">RPL</span>!
+                    </h1>
+                    <p class="lead animate__animated animate__fadeIn animate__delay-1s">
+                        Mari bergabung untuk mengembangkan teknologi dan kreativitas di bidang Rekayasa Perangkat Lunak!
+                    </p>
+                    <a href="#tentang-rpl" class="btn btn-light btn-lg mt-3 animate__animated animate__fadeIn animate__delay-2s">
+                        Apa si Jurusan RPL itu?
+                    </a>
                 </div>
             </div>
         </section>
+    
+    
+        
 
-        <section class="mb-5">
+        <section id="tentang-rpl">
             <!-- Card untuk Tentang RPL -->
-            <div class="container mt-5">
+            <div class="container mb-5">
                 <div class="card shadow-lg border-0 mb-3 p-5" style="border-radius: 16px;">
                     <div class="row g-0 align-items-center">
                         <!-- Gambar Kiri -->
@@ -38,9 +47,9 @@
                                     <p>
                                         Dalam RPL, pemahaman siklus hidup perangkat lunak sangat penting. Siklus ini mencakup analisis kebutuhan, desain, pengkodean, pengujian, hingga pemeliharaan perangkat lunak.
                                     </p>
-                                    <a href="#" class="btn btn-rpl mt-3" style="border-radius: 12px; background: #fde616; font-size: 15px;">
+                                    <a href="{{ route('tentang') }}" class="btn-rpl mt-3">
                                         <i class="bi bi-lightbulb"></i> Pelajari Lebih Lanjut
-                                    </a>                                    
+                                    </a>                                 
                                 </div>
                             </div>
                         </div>
@@ -49,11 +58,13 @@
             </div>
         </section>
         
+        
+        
         <section class="visi-misi py-5">
             <div class="container">
-                <div class="row">
+                <div class="row justify-content-center">
                     <!-- Visi Section -->
-                    <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="col-lg-6 mb-4">
                         <div class="card visi-card">
                             <div class="card-body">
                                 <h2 class="section-title">Visi</h2>
@@ -101,7 +112,7 @@
                         <div class="card h-100 text-center shadow-lg">
                             <div class="card-body">
                                 <div class="icon mb-3">
-                                    <img src="assets/img/gambar1.jpg" alt="Icon Keunggulan" class="img-fluid" width="60">
+                                    <i class="fas fa-laptop-code fa-3x text-primary"></i>
                                 </div>
                                 <h5 class="card-title fw-bold">Teknologi Terbaru</h5>
                                 <p class="card-text">
@@ -116,7 +127,7 @@
                         <div class="card h-100 text-center shadow-lg">
                             <div class="card-body">
                                 <div class="icon mb-3">
-                                    <img src="assets/img/icon2.png" alt="Icon Keunggulan" class="img-fluid" width="60">
+                                    <i class="fas fa-tools fa-3x text-warning"></i>
                                 </div>
                                 <h5 class="card-title fw-bold">Fasilitas Lengkap</h5>
                                 <p class="card-text">
@@ -131,7 +142,7 @@
                         <div class="card h-100 text-center shadow-lg">
                             <div class="card-body">
                                 <div class="icon mb-3">
-                                    <img src="assets/img/icon3.png" alt="Icon Keunggulan" class="img-fluid" width="60">
+                                    <i class="fas fa-handshake fa-3x text-success"></i>
                                 </div>
                                 <h5 class="card-title fw-bold">Kerjasama Industri</h5>
                                 <p class="card-text">
@@ -146,7 +157,7 @@
                         <div class="card h-100 text-center shadow-lg">
                             <div class="card-body">
                                 <div class="icon mb-3">
-                                    <img src="assets/img/icon4.png" alt="Icon Keunggulan" class="img-fluid" width="60">
+                                    <i class="fas fa-lightbulb fa-3x text-info"></i>
                                 </div>
                                 <h5 class="card-title fw-bold">Inovasi dan Kreativitas</h5>
                                 <p class="card-text">
@@ -161,7 +172,7 @@
                         <div class="card h-100 text-center shadow-lg">
                             <div class="card-body">
                                 <div class="icon mb-3">
-                                    <img src="assets/img/icon5.png" alt="Icon Keunggulan" class="img-fluid" width="60">
+                                    <i class="fas fa-trophy fa-3x text-danger"></i>
                                 </div>
                                 <h5 class="card-title fw-bold">Kompetisi Nasional</h5>
                                 <p class="card-text">
@@ -176,7 +187,7 @@
                         <div class="card h-100 text-center shadow-lg">
                             <div class="card-body">
                                 <div class="icon mb-3">
-                                    <img src="assets/img/icon6.png" alt="Icon Keunggulan" class="img-fluid" width="60">
+                                    <i class="fas fa-briefcase fa-3x text-dark"></i>
                                 </div>
                                 <h5 class="card-title fw-bold">Lulusan Siap Kerja</h5>
                                 <p class="card-text">
@@ -188,64 +199,147 @@
                 </div>
             </div>
         </section>
+        
 
 
-        <section class="berita py-5">
+        <section class="perusahaan-kerjasama py-5">
+            <div class="container">
+                <!-- Judul Section -->
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold fs-3">Rekan Perusahaan Jurusan RPL</h2>
+                    <h3 class="fw-bold">
+                        <span style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); font-style: italic; color: #2c3e50;">SMKN 1 KAWALI</span>
+                    </h3>
+                    <p class="text-muted">
+                        Kami bangga dapat menjalin kerja sama dengan berbagai perusahaan ternama untuk memberikan peluang terbaik bagi siswa jurusan Rekayasa Perangkat Lunak (RPL) kami.
+                    </p>
+                </div>
+            </div>
+                
+            <!-- Logo Perusahaan -->
+            <div class="container">
+                <div class="row row-cols-2 row-cols-md-4 g-4">
+                    <!-- Logo Perusahaan 1 -->
+                    <div class="col text-center">
+                        <img src="assets/img/logo-perusahaan1.png" alt="Logo Perusahaan 1" class="img-fluid company-logo">
+                    </div>
+                    <!-- Logo Perusahaan 2 -->
+                    <div class="col text-center">
+                        <img src="assets/img/logo-perusahaan2.png" alt="Logo Perusahaan 2" class="img-fluid company-logo">
+                    </div>
+                    <!-- Logo Perusahaan 3 -->
+                    <div class="col text-center">
+                        <img src="assets/img/logo-perusahaan3.png" alt="Logo Perusahaan 3" class="img-fluid company-logo">
+                    </div>
+                    <!-- Logo Perusahaan 4 -->
+                    <div class="col text-center">
+                        <img src="assets/img/logo.png" alt="Logo Perusahaan 4" class="img-fluid company-logo">
+                    </div>
+                    <!-- Logo Perusahaan 5 -->
+                    <div class="col text-center">
+                        <img src="assets/img/logo.png" alt="Logo Perusahaan 5" class="img-fluid company-logo">
+                    </div>
+                    <!-- Logo Perusahaan 6 -->
+                    <div class="col text-center">
+                        <img src="assets/img/logo.png" alt="Logo Perusahaan 6" class="img-fluid company-logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        
+
+
+        <section class="berita py-5" id="berita">
             <div class="container">
                 <!-- Judul Section -->
                 <div class="text-center mb-5">
                     <h2 class="fw-bold">Berita Terbaru</h2>
                     <p class="text-muted">Berita dan informasi terkini dari jurusan Rekayasa Perangkat Lunak.</p>
-                    <div class="underline mx-auto"></div>
                 </div>
         
-                <!-- Grid Berita -->
-                <div class="row g-4">
-                    <!-- Berita 1 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card shadow-sm berita-card">
-                            <img src="assets/img/gedungrpl.jpg" class="card-img-top" alt="Berita 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Lomba Coding Nasional</h5>
-                                <p class="card-text">Siswa RPL meraih juara 1 dalam lomba coding tingkat nasional.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Baca Selengkapnya</a>
-                                    <span class="text-muted small">10 Jan 2025</span>
+                {{-- <div class="row g-4">
+                    @foreach ($berita as $beritas)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card shadow-sm berita-card">
+                                <!-- Menampilkan Gambar -->
+                                <img src="{{ asset('storage/' . $beritas->image) }}" class="card-img-top" alt="{{ $beritas->title }}">
+                                <div class="card-body">
+                                    <!-- Menampilkan Judul -->
+                                    <h5 class="card-title">{{ $beritas->title }}</h5>
+                                    <!-- Menampilkan Konten (deskripsi) -->
+                                    <p class="card-text">{{ Str::limit($beritas->content, 80) }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <!-- Link Baca Selengkapnya -->
+                                        <a href="{{ route('berita.show', $beritas->id) }}" class="btn btn-outline-primary btn-sm">Baca Selengkapnya</a>
+                                        <!-- Menampilkan Tanggal Publikasi -->
+                                        <span class="text-muted small">{{ \Carbon\Carbon::parse($beritas->publish_date)->format('d M Y') }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-        
-                    <!-- Berita 2 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card shadow-sm berita-card">
-                            <img src="assets/img/berita2.jpg" class="card-img-top" alt="Berita 2">
-                            <div class="card-body">
-                                <h5 class="card-title">Kunjungan Industri</h5>
-                                <p class="card-text">Siswa RPL mengunjungi perusahaan teknologi ternama di Jakarta.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Baca Selengkapnya</a>
-                                    <span class="text-muted small">08 Jan 2025</span>
+                    @endforeach
+                </div> --}}
+                <style>
+                    .modal-content {
+                        border-radius: 15px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .modal-body img {
+                        border-radius: 10px;
+                    }
+                </style>
+
+                <div class="row g-4 mt-3">
+                    @foreach ($berita as $beritas)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card shadow-sm berita-card">
+                                <!-- Menampilkan Gambar -->
+                                <img src="{{ asset('storage/' . $beritas->image) }}" class="card-img-top" alt="{{ $beritas->title }}">
+                                <div class="card-body">
+                                    <!-- Menampilkan Judul -->
+                                    <h5 class="card-title">{{ $beritas->title }}</h5>
+                                    <!-- Menampilkan Konten (deskripsi) -->
+                                    <p class="card-text">{{ Str::limit($beritas->content, 80) }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <!-- Tombol untuk membuka Modal -->
+                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalBerita{{ $beritas->id }}">
+                                            Baca Selengkapnya
+                                        </button>
+                                        <!-- Menampilkan Tanggal Publikasi -->
+                                        <span class="text-muted small">{{ \Carbon\Carbon::parse($beritas->publish_date)->format('d M Y') }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-        
-                    <!-- Berita 3 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card shadow-sm berita-card">
-                            <img src="assets/img/berita3.jpg" class="card-img-top" alt="Berita 3">
-                            <div class="card-body">
-                                <h5 class="card-title">Workshop AI</h5>
-                                <p class="card-text">Jurusan RPL menyelenggarakan workshop pengenalan Artificial Intelligence.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Baca Selengkapnya</a>
-                                    <span class="text-muted small">05 Jan 2025</span>
+                
+                        <!-- Modal untuk Baca Selengkapnya -->
+                        <div class="modal fade" id="modalBerita{{ $beritas->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $beritas->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel{{ $beritas->id }}">{{ $beritas->title }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Menampilkan Gambar Besar -->
+                                        <img src="{{ asset('storage/' . $beritas->image) }}" class="img-fluid mb-3" alt="{{ $beritas->title }}">
+                                        <!-- Menampilkan Konten Lengkap -->
+                                        <p>{{ $beritas->content }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
+                
+                
             </div>
         </section>
         
@@ -256,82 +350,121 @@
                 <!-- Judul Section -->
                 <div class="text-center mb-5">
                     <h2 class="fw-bold ">Cerita Inspiratif Alumni</h2>
-                    <p class="text-muted fs-5">Lihat bagaimana jurusan Rekayasa Perangkat Lunak membantu mereka meraih sukses.</p>
-                    <div class="underline mx-auto"></div>
+                    <p class="text-muted">Lihat bagaimana jurusan Rekayasa Perangkat Lunak membantu mereka meraih sukses.</p>
                 </div>
         
                 <!-- Testimoni Grid -->
-                <div class="row g-4">
+                <div class="row g-4 mt-3">
                     <!-- Testimoni 1 -->
-                    <div class="col-md-6">
-                        <div class="card testimonial-card p-4 border-0 shadow-lg h-100">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/img/gambar1.jpg" alt="Alumni 1" class="rounded-circle testimonial-img me-3">
-                                <div>
-                                    <h5 class="fw-bold mb-0">John Doe</h5>
-                                    <p class="text-muted">Software Engineer di Google</p>
+                    @foreach($testimonis as $testi)
+                        <div class="col-md-6">
+                            <div class="card testimonial-card p-4 border-0 shadow-lg h-100">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $testi->image_alumni) }}" alt="{{ $testi->nama }}"  class="rounded-circle testimonial-img me-3">
+                                    <div>
+                                        <h5 class="fw-bold mb-0">{{ $testi->nama }}</h5>
+                                        <p class="text-muted">{{ $testi->profesi }}</p>
+                                    </div>
                                 </div>
+                                <hr class="my-3">
+                                <p class="text-muted">
+                                    {{ $testi->testimoni_alumni }}
+                                </p>
                             </div>
-                            <hr class="my-3">
-                            <p class="text-muted">
-                                "Belajar di RPL memberikan saya dasar yang kuat dalam dunia pemrograman. Para guru sangat mendukung, dan kurikulumnya relevan dengan kebutuhan industri saat ini."
-                            </p>
+                        </div>
+                    @endforeach
+                    <div class="d-flex justify-content-center mt-4">
+                        <div class="pagination-container">
+                            {{ $testimonis->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
+                    <style>
+                        .pagination-container {
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                        }
+                        .pagination {
+                            justify-content: center;
+                        }
+                        .pagination .page-item .page-link {
+                            color: #000;
+                            border-radius: 5px;
+                            margin: 0 5px;
+                        }
+                        .pagination .page-item.active .page-link {
+                            background-color: #fde616;
+                            color: white;
+                            border-color: #fde616;
+                        }
+                        .pagination .page-item .page-link:hover {
+                            background-color: #e5d00e;
+                            color: white;
+                        }
+                    </style>
+                </div>
+            </div>
+        </section>
+
         
-                    <!-- Testimoni 2 -->
-                    <div class="col-md-6">
-                        <div class="card testimonial-card p-4 border-0 shadow-lg h-100">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/img/alumni2.jpg" alt="Alumni 2" class="rounded-circle testimonial-img me-3">
-                                <div>
-                                    <h5 class="fw-bold mb-0">Jane Smith</h5>
-                                    <p class="text-muted">UI/UX Designer di Microsoft</p>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <p class="text-muted">
-                                "Jurusan RPL tidak hanya mengajarkan teknis, tetapi juga soft skill yang sangat penting untuk karier saya."
-                            </p>
+        
+        
+        <section class="pemberian-testimoni py-5" id="testi">
+            <!-- Teks Deskripsi sebelum Tombol -->
+            <div class="text-center mb-4">
+                <h2 class="testi-title fw-bold">Berikan Testimoni Anda, Alumni RPL</h2>
+                <p class="text-muted">
+                    Kami ingin mendengar pengalaman dan pandangan Anda sebagai alumni jurusan Rekayasa Perangkat Lunak. Testimoni Anda sangat berarti bagi kami dan calon siswa yang ingin bergabung.
+                </p>
+            </div>
+        
+            <!-- Button untuk menampilkan form -->
+            <div class="text-center mb-4">
+                <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#testimoniModal">Berikan Testimoni</a>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="testimoniModal" tabindex="-1" aria-labelledby="testimoniModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="testimoniModalLabel">Form Testimoni</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
-        
-                    <!-- Testimoni 3 -->
-                    <div class="col-md-6">
-                        <div class="card testimonial-card p-4 border-0 shadow-lg h-100">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/img/alumni3.jpg" alt="Alumni 3" class="rounded-circle testimonial-img me-3">
-                                <div>
-                                    <h5 class="fw-bold mb-0">Michael Johnson</h5>
-                                    <p class="text-muted">Data Scientist di Amazon</p>
+                        <div class="modal-body">
+                            <form action="{{ route('testimoniUser.store') }}" method="POST" enctype="multipart/form-data" id="testimoniForm">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="nama" class="form-label">Nama</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
-                            </div>
-                            <hr class="my-3">
-                            <p class="text-muted">
-                                "Pengalaman saya di RPL luar biasa! Saya mendapatkan keterampilan inti yang menjadi dasar karier saya sebagai Data Scientist."
-                            </p>
-                        </div>
-                    </div>
-        
-                    <!-- Testimoni 4 -->
-                    <div class="col-md-6">
-                        <div class="card testimonial-card p-4 border-0 shadow-lg h-100">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/img/alumni4.jpg" alt="Alumni 4" class="rounded-circle testimonial-img me-3">
-                                <div>
-                                    <h5 class="fw-bold mb-0">Emily Davis</h5>
-                                    <p class="text-muted">Product Manager di Apple</p>
+                                <div class="mb-3">
+                                    <label for="profesi" class="form-label">Pekerjaan</label>
+                                    <input type="text" class="form-control" id="profesi" name="profesi" required>
+                                    <p class="text-muted" style="font-size: 15px;">Pekerjaan anda sekarang.</p>
                                 </div>
-                            </div>
-                            <hr class="my-3">
-                            <p class="text-muted">
-                                "RPL mengajarkan saya untuk selalu berinovasi. Bimbingan para guru sangat membantu saya mencapai posisi saat ini."
-                            </p>
+                                <div class="mb-3">
+                                    <label for="testimoni_alumni" class="form-label">Testimoni</label>
+                                    <textarea class="form-control" id="testimoni_alumni" name="testimoni_alumni" rows="4" required></textarea>
+                                    <p class="text-muted" style="font-size: 15px;">Berikan testimoni anda selama sekolah di smkn 1 kawali di jurusan rpl.</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image_alumni" class="form-label">Foto (Opsional)</label>
+                                    <input type="file" class="form-control" id="image_alumni" name="image_alumni">
+                                    <p class="text-muted" style="font-size: 15px;">Poto anda bebas asalkan sopan.</p>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+        
         </section>
+        
         
         
 
