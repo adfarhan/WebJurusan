@@ -23,11 +23,11 @@ class LoginController extends Controller
         // Attempt to login
         if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
             // Redirect to intended route or home
-            return redirect()->route('berandaAdminUtama');
+            return redirect()->route('berandaAdminUtama')->with('success', 'Login berhasil! Selamat datang.');
         }
 
         // If login fails
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        return back()->with('error', 'Email atau password salah.');
     }
 
     public function logout(Request $request)
@@ -41,6 +41,6 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         // Redirect ke halaman login atau beranda setelah logout
-        return redirect('/');  // Atau halaman lain sesuai kebutuhan
+        return redirect('/login');  // Atau halaman lain sesuai kebutuhan
     }
 }

@@ -1,99 +1,108 @@
 <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="{{ route('berandaAdminUtama') }}">
-          <i class="bi bi-grid"></i>
-          <span>Beranda</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+  <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Tampilan</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ route('berandaAdmin') }}">
-              <i class="bi bi-circle"></i><span>Beranda</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('tentangAdmin') }}">
-              <i class="bi bi-circle"></i><span>Tentang</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-badges.html">
-              <i class="bi bi-circle"></i><span>Kurikulum</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('kegiatanAdmin') }}">
-              <i class="bi bi-circle"></i><span>Kegiatan</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('alumniAdmin') }}">
-              <i class="bi bi-circle"></i><span>Alumni</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-cards.html">
-              <i class="bi bi-circle"></i><span>Kontak</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
+          <a class="nav-link {{ request()->routeIs('berandaAdminUtama') ? '' : 'collapsed' }}" href="{{ route('berandaAdminUtama') }}">
+              <i class="bi bi-house"></i>
+              <span>Beranda</span>
+          </a>
+      </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Konfirmasi Data</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ route('testimoniKonfirAdmin') }}">
-              <i class="bi bi-circle"></i><span>Data Testimoni</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-layouts.html">
-              <i class="bi bi-circle"></i><span>Form Layouts</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Form Editors</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Form Validation</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Forms Nav -->
+          <a class="nav-link {{ request()->routeIs('berandaAdmin', 'tentangAdmin', 'kurikulumAdmin', 'kegiatanAdmin', 'alumniAdmin') ? '' : 'collapsed' }}" 
+             data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-eye"></i><span>Tampilan</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="components-nav" class="nav-content collapse {{ request()->routeIs('berandaAdmin', 'tentangAdmin', 'kurikulumAdmin', 'kegiatanAdmin', 'alumniAdmin') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+              <li>
+                  <a href="{{ route('berandaAdmin') }}" class="{{ request()->routeIs('berandaAdmin') ? 'active' : '' }}">
+                      <i class="bi bi-circle"></i><span>Beranda</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{{ route('tentangAdmin') }}" class="{{ request()->routeIs('tentangAdmin') ? 'active' : '' }}">
+                      <i class="bi bi-circle"></i><span>Tentang</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{{ route('kurikulumAdmin') }}" class="{{ request()->routeIs('kurikulumAdmin') ? 'active' : '' }}">
+                      <i class="bi bi-circle"></i><span>Kurikulum</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{{ route('kegiatanAdmin') }}" class="{{ request()->routeIs('kegiatanAdmin') ? 'active' : '' }}">
+                      <i class="bi bi-circle"></i><span>Kegiatan</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{{ route('alumniAdmin') }}" class="{{ request()->routeIs('alumniAdmin') ? 'active' : '' }}">
+                      <i class="bi bi-circle"></i><span>Alumni</span>
+                  </a>
+              </li>
+          </ul>
+      </li>
 
+      <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('testimoniKonfirAdmin') ? '' : 'collapsed' }}" 
+             data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-check-circle"></i><span>Konfirmasi Data</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="forms-nav" class="nav-content collapse {{ request()->routeIs('testimoniKonfirAdmin') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+              <li>
+                  <a href="{{ route('testimoniKonfirAdmin') }}" class="{{ request()->routeIs('testimoniKonfirAdmin') ? 'active' : '' }}">
+                      <i class="bi bi-circle"></i><span>Data Testimoni</span>
+                  </a>
+              </li>
+          </ul>
+      </li>
 
       <li class="nav-heading">Pages</li>
 
+      <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('password.change') ? 'active' : 'collapsed' }}" href="{{ route('password.change') }}">
+              <i class="bi bi-key"></i>
+              <span>Ubah Password</span>
+          </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" onclick="confirmLogout(event)">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+    </li>
+    
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    
+    <script>
+        function confirmLogout(event) {
+            event.preventDefault();  // Mencegah aksi default (logout langsung)
+            
+            // Menampilkan SweetAlert2 konfirmasi
+            Swal.fire({
+                      title: "Konfirmasi Logout",
+                      text: "Apakah Anda yakin ingin logout?",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#d33",
+                      cancelButtonColor: "#3085d6",
+                      confirmButtonText: "Ya, Logout",
+                      cancelButtonText: "Batal"
+                  }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna menekan "Ya, logout!", kirim form logout
+                    document.getElementById('logout-form').submit();
+                }
+            });
+        }
+    </script>
+    
     
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-left"></i>
-          <span>Logout</span>
-        </a>
-      </li><!-- End Login Page Nav -->
+  </ul>
+</aside>
 
 
-    </ul>
-  </aside><!-- End Sidebar-->
+

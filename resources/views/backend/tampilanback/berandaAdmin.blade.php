@@ -11,6 +11,46 @@
             </nav>
         </div>
         <div class="container">
+            <style>
+                .alert-success {
+                    background-color: #e6f9e6;
+                    color: #155724;
+                }
+            
+                .btn-close {
+                    color: #155724;
+                }
+            
+                .btn-close:hover {
+                    color: #0b3d0b;
+                }
+            </style>
+            
+
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert" style="margin-top: 10px; border: 2px solid #28a745; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
+                <i class="bi bi-check-circle-fill" style="font-size: 20px; margin-right: 10px; color: #28a745;"></i>
+                <span class="flex-grow-1">{{ session('success') }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+            <script>
+                setTimeout(() => {
+                    let alert = document.querySelector('.alert');
+                    if (alert) {
+                        alert.classList.add('fade-out');
+                        setTimeout(() => alert.remove(), 500);
+                    }
+                }, 3000); // 3 detik
+            </script>
+            
+            <style>
+                .fade-out {
+                    opacity: 0;
+                    transition: opacity 0.5s ease-out;
+                }
+            </style>
+
 
             <section class="berita-admin" id="berita-admin">
                 <div class="container text-center py-4">
@@ -121,11 +161,35 @@
 
                             <a href="{{ route('berita.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
                                 Tambah Data</a>
-
-                            <div>
-                                {{ $berita->links('pagination::bootstrap-4') }} <!-- Adjust this to match your variable name -->
+                        </div>
+                        <div class="d-flex justify-content-center mt-4">
+                            <div class="pagination-container">
+                                {{ $berita->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
+                        <style>
+                            .pagination-container {
+                                margin-top: 20px;
+                                margin-bottom: 20px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: white;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: white;
+                            }
+                        </style>
                     </div>
                 </div>
             </section>
@@ -153,7 +217,7 @@
                                     <tr style="border-bottom: 2px solid #5f5f58;">
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Nama</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Profesi</th>
+                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Angkatan</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Data Testimoni</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Poto Alumni</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
@@ -167,12 +231,12 @@
                                         </tr>
                                     </tbody>
                                 @else
-                                @foreach($testimonis as $testi)
+                                @foreach($testimonis as $key => $testi)
                                     <tbody style="background-color: #fff; color: #000;">
                                         <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e;">
-                                            <td style="padding: 12px; ">{{ $loop->iteration }}.</td>
+                                            <td style="padding: 12px; ">{{ $testimonis->firstItem() + $key }}.</td>
                                             <td style="padding: 12px; font-size: 13px;">{{ $testi->nama }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $testi->profesi }}</td>
+                                            <td style="padding: 12px; font-size: 12px;">{{ $testi->angkatan }}</td>
                                             <td style="padding: 12px; font-size: 12px; text-align: justify;">{{ $testi->testimoni_alumni }}</td>
                                             <td style="padding: 12px;">
                                                 <img src="{{ asset('storage/' . $testi->image_alumni) }}" 
@@ -217,11 +281,36 @@
                                 <i class="bi bi-plus"></i> Tambah Data
                             </a>
                             
-                            <!-- Pagination -->
-                            <div>
-                                {{ $testimonis->links('pagination::bootstrap-4') }} <!-- Adjust this to match your variable name -->
-                            </div>
                         </div>
+                            <!-- Pagination -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <div class="pagination-container">
+                                    {{ $testimonis->links('pagination::bootstrap-4') }}
+                                </div>
+                            </div>
+                            <style>
+                                .pagination-container {
+                                    margin-top: 20px;
+                                    margin-bottom: 20px;
+                                }
+                                .pagination {
+                                    justify-content: center;
+                                }
+                                .pagination .page-item .page-link {
+                                    color: #000;
+                                    border-radius: 5px;
+                                    margin: 0 5px;
+                                }
+                                .pagination .page-item.active .page-link {
+                                    background-color: #fde616;
+                                    color: white;
+                                    border-color: #fde616;
+                                }
+                                .pagination .page-item .page-link:hover {
+                                    background-color: #e5d00e;
+                                    color: white;
+                                }
+                            </style>
                     </div>
                     
                 </div>

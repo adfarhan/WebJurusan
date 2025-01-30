@@ -1,5 +1,18 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+
+        @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        </script>
+        @endif
+
         <section class="awalan-beranda mb-5">
             <div>
                 <div class="image-container">
@@ -205,12 +218,9 @@
         <section class="perusahaan-kerjasama py-5">
             <div class="container">
                 <!-- Judul Section -->
-                <div class="text-center mb-5">
-                    <h2 class="fw-bold fs-3">Rekan Perusahaan Jurusan RPL</h2>
-                    <h3 class="fw-bold">
-                        <span style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); font-style: italic; color: #2c3e50;">SMKN 1 KAWALI</span>
-                    </h3>
-                    <p class="text-muted">
+                <div class="mb-5">
+                    <h2 class="fw-bold fs-3 text-center">Rekan Perusahaan Jurusan <span style="color: #fde616; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);">RPL</span></h2>
+                    <p class="text-muted text-start">
                         Kami bangga dapat menjalin kerja sama dengan berbagai perusahaan ternama untuk memberikan peluang terbaik bagi siswa jurusan Rekayasa Perangkat Lunak (RPL) kami.
                     </p>
                 </div>
@@ -221,15 +231,15 @@
                 <div class="row row-cols-2 row-cols-md-4 g-4">
                     <!-- Logo Perusahaan 1 -->
                     <div class="col text-center">
-                        <img src="assets/img/logo-perusahaan1.png" alt="Logo Perusahaan 1" class="img-fluid company-logo">
+                        <img src="assets/img/logo.png" alt="Logo Perusahaan 1" class="img-fluid company-logo">
                     </div>
                     <!-- Logo Perusahaan 2 -->
                     <div class="col text-center">
-                        <img src="assets/img/logo-perusahaan2.png" alt="Logo Perusahaan 2" class="img-fluid company-logo">
+                        <img src="assets/img/logo.png" alt="Logo Perusahaan 2" class="img-fluid company-logo">
                     </div>
                     <!-- Logo Perusahaan 3 -->
                     <div class="col text-center">
-                        <img src="assets/img/logo-perusahaan3.png" alt="Logo Perusahaan 3" class="img-fluid company-logo">
+                        <img src="assets/img/logo.png" alt="Logo Perusahaan 3" class="img-fluid company-logo">
                     </div>
                     <!-- Logo Perusahaan 4 -->
                     <div class="col text-center">
@@ -337,6 +347,34 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="d-flex justify-content-center mt-4">
+                        <div class="pagination-container">
+                            {{ $berita->links('pagination::bootstrap-4') }}
+                        </div>
+                    </div>
+                    <style>
+                        .pagination-container {
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                        }
+                        .pagination {
+                            justify-content: center;
+                        }
+                        .pagination .page-item .page-link {
+                            color: #000;
+                            border-radius: 5px;
+                            margin: 0 5px;
+                        }
+                        .pagination .page-item.active .page-link {
+                            background-color: #fde616;
+                            color: white;
+                            border-color: #fde616;
+                        }
+                        .pagination .page-item .page-link:hover {
+                            background-color: #e5d00e;
+                            color: white;
+                        }
+                    </style>
                 </div>
                 
                 
@@ -363,7 +401,7 @@
                                     <img src="{{ asset('storage/' . $testi->image_alumni) }}" alt="{{ $testi->nama }}"  class="rounded-circle testimonial-img me-3">
                                     <div>
                                         <h5 class="fw-bold mb-0">{{ $testi->nama }}</h5>
-                                        <p class="text-muted">{{ $testi->profesi }}</p>
+                                        <p class="text-muted" style="font-style: italic;">Angkatan {{ $testi->angkatan }}</p>
                                     </div>
                                 </div>
                                 <hr class="my-3">
@@ -438,8 +476,8 @@
                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="profesi" class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control" id="profesi" name="profesi" required>
+                                    <label for="angkatan" class="form-label">Angkatan Lulus</label>
+                                    <input type="number" class="form-control" id="angkatan" name="angkatan" required>
                                     <p class="text-muted" style="font-size: 15px;">Pekerjaan anda sekarang.</p>
                                 </div>
                                 <div class="mb-3">

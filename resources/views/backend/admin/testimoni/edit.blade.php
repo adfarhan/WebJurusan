@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit Testimoni Alumni</title>
+    <link rel="icon" href="{{ asset('assets/img/logo.png') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -65,12 +66,12 @@
                         <input type="text" name="nama" id="nama" class="form-control" value="{{ old('nama', $testimoni->nama) }}" required>
                     </div>
 
-                    <!-- Profesi -->
+                    <!-- angkatan -->
                     <div class="mb-4">
-                        <label for="profesi" class="form-label fw-bold">Profesi</label>
-                        <input type="text" name="profesi" id="profesi" class="form-control" value="{{ old('profesi', $testimoni->profesi) }}" required>
+                        <label for="angkatan" class="form-label fw-bold">Angkatan</label>
+                        <input type="number" name="angkatan" id="angkatan" class="form-control" value="{{ old('angkatan', $testimoni->angkatan) }}" required>
                     </div>
-
+                    
                     <!-- Testimoni -->
                     <div class="mb-4">
                         <label for="testimoni_alumni" class="form-label fw-bold">Testimoni</label>

@@ -11,6 +11,47 @@
             </nav>
         </div>
         <div class="container">
+
+            <style>
+                .alert-success {
+                    background-color: #e6f9e6;
+                    color: #155724;
+                }
+            
+                .btn-close {
+                    color: #155724;
+                }
+            
+                .btn-close:hover {
+                    color: #0b3d0b;
+                }
+            </style>
+            
+
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert" style="margin-top: 10px; border: 2px solid #28a745; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
+                <i class="bi bi-check-circle-fill" style="font-size: 20px; margin-right: 10px; color: #28a745;"></i>
+                <span class="flex-grow-1">{{ session('success') }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+            <script>
+                setTimeout(() => {
+                    let alert = document.querySelector('.alert');
+                    if (alert) {
+                        alert.classList.add('fade-out');
+                        setTimeout(() => alert.remove(), 500);
+                    }
+                }, 3000); // 3 detik
+            </script>
+            
+            <style>
+                .fade-out {
+                    opacity: 0;
+                    transition: opacity 0.5s ease-out;
+                }
+            </style>
+            
             <section class="projek-admin" id="projek-admin">
                 <div class="container text-center py-4">
                     <h2 class="fw-bold">Data Projek</h2>
@@ -29,7 +70,7 @@
                             <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
                                 <!-- Header -->
                                 <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58;">
+                                    <tr style="border-bottom: 2px solid #5f5f58; text-align: center;">
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Judul Projek</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Deskripsi</th>
@@ -111,7 +152,7 @@
                             <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
                                 <!-- Header -->
                                 <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58;">
+                                    <tr style="border-bottom: 2px solid #5f5f58; text-align: center;">
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Nama</th>
                                         <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Kelas</th>

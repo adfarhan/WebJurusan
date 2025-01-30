@@ -45,10 +45,11 @@
                 </div>
                 <!-- Contact Form -->
                 <div class="contact-form">
-                    <form action="#" method="POST">
+                    <form action="{{ route('kirim.pesan') }}" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <label for="name">Nama</label>
-                            <input type="text" id="name" name="name" placeholder="Masukkan Nama Anda" required>
+                            <label for="nama">Nama</label>
+                            <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -59,8 +60,8 @@
                             <input type="text" id="subject" name="subject" placeholder="Masukkan Subjek" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Pesan</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tulis Pesan Anda" required></textarea>
+                            <label for="pesan">Pesan</label>
+                            <textarea id="pesan" name="pesan" rows="5" placeholder="Tulis Pesan Anda" required></textarea>
                         </div>
                         <button type="submit">Kirim Pesan</button>
                     </form>

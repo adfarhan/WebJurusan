@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg ultra-modern-navbar">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="https://smkn1kawali.sch.id/">
             <img src="assets/img/logo.png" alt="Logo" width="50" height="50" class="navbar-logo">
             <span class="brand-text">SMKN 1 KAWALI</span>
         </a>
@@ -9,12 +9,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ route('beranda') }}">Beranda</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('tentang') }}">Tentang</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('kurikulum') }}">Kurikulum</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('kegiatan') }}">Kegiatan</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('alumnis') }}">Alumni</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('kontak') }}">Kontak</a></li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('tentang') ? 'active' : '' }}" href="{{ route('tentang') }}">Tentang</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('kurikulum') ? 'active' : '' }}" href="{{ route('kurikulum') }}">Kurikulum</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('kegiatan') ? 'active' : '' }}" href="{{ route('kegiatan') }}">Kegiatan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('alumnis') ? 'active' : '' }}" href="{{ route('alumnis') }}">Alumni</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('testimonis', function (Blueprint $table) {
+        Schema::create('pengajars', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('angkatan');
-            $table->text('testimoni_alumni');
-            $table->string('image_alumni');
-            $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending');
+            $table->string('jabatan');
+            $table->string('bidang');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('testimonis');
+        Schema::dropIfExists('pengajars');
     }
 };

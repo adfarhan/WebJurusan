@@ -21,12 +21,12 @@ class TestimoniController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'profesi' => 'required|string|max:255',
+            'angkatan' => 'required|string|max:255',
             'testimoni_alumni' => 'required|string',
             'image_alumni' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
     
-        $data = $request->only(['nama', 'profesi', 'testimoni_alumni']);
+        $data = $request->only(['nama', 'angkatan', 'testimoni_alumni']);
         $data['status'] = 'pending'; // Tambahkan status default
     
         if ($request->hasFile('image_alumni')) {
@@ -43,12 +43,12 @@ class TestimoniController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'profesi' => 'required|string|max:255',
+            'angkatan' => 'required|string|max:255',
             'testimoni_alumni' => 'required|string',
             'image_alumni' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
     
-        $data = $request->only(['nama', 'profesi', 'testimoni_alumni']);
+        $data = $request->only(['nama', 'angkatan', 'testimoni_alumni']);
         $data['status'] = 'pending'; // Tambahkan status default
     
         if ($request->hasFile('image_alumni')) {
@@ -73,12 +73,12 @@ class TestimoniController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'profesi' => 'required|string|max:255',
+            'angkatan' => 'required|string|max:255',
             'testimoni_alumni' => 'required|string',
             'image_alumni' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
     
-         $data = $request->only(['nama', 'profesi', 'testimoni_alumni']); // Ambil data yang diperlukan saja
+         $data = $request->only(['nama', 'angkatan', 'testimoni_alumni']); // Ambil data yang diperlukan saja
     
         if ($request->hasFile('image_alumni')) {
              // Hapus gambar lama jika ada
@@ -145,9 +145,9 @@ class TestimoniController extends Controller
 
     public function adminIndex()
     {
-        $pendingTestimoni = Testimoni::where('status', 'pending')->get();
-        $diterimaTestimoni = Testimoni::where('status', 'diterima')->get();
-        $ditolakTestimoni = Testimoni::where('status', 'ditolak')->get();
+        $pendingTestimoni = Testimoni::where('status', 'pending')->orderBy('created_at', 'desc')->paginate(5);
+        $diterimaTestimoni = Testimoni::where('status', 'diterima')->orderBy('created_at', 'desc')->paginate(5);
+        $ditolakTestimoni = Testimoni::where('status', 'ditolak')->orderBy('created_at', 'desc')->paginate(5);
 
         return view('backend.admin.testimoni.konfirmasiData', [
             'pendingTestimoni' => $pendingTestimoni,
@@ -155,7 +155,7 @@ class TestimoniController extends Controller
             'ditolakTestimoni' => $ditolakTestimoni,
             'title' => 'Konfirmasi Data Alumni'
         ]);
-        
     }
+
 
 }

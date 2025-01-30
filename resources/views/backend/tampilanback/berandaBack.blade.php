@@ -10,7 +10,45 @@
                 </ol>
             </nav>
         </div>
-        <div class="container">
+        <div class="container mt-5">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body text-center p-3">
+                    <!-- Ikon besar untuk konfirmasi -->
+                    <i class="bi bi-check-circle-fill text-success display-1 mb-3"></i>
+                    <h5 class="card-title fw-bold">Data yang Harus Dikonfirmasi</h5>
+                    <!-- Angka data -->
+                    <p class="display-4 text-dark fw-bold">{{ $dataCount }}</p>
+                </div>
+                <div class="card-footer text-center bg-light">
+                    <a href="{{ route('testimoniKonfirAdmin') }}" class="btn btn-outline-success px-4 py-2 rounded-pill">
+                        <i class="bi bi-eye"></i> Lihat Detail
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        setTimeout(() => {
+            let alert = document.querySelector('.alert');
+            if (alert) {
+                alert.classList.add('fade-out');
+                setTimeout(() => alert.remove(), 500);
+            }
+        }, 3000); // 3 detik
+    </script>
+    
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+    
 </x-layBack>

@@ -11,6 +11,48 @@
             </nav>
         </div>
         <div class="container">
+
+            <style>
+                .alert-success {
+                    background-color: #e6f9e6;
+                    color: #155724;
+                }
+            
+                .btn-close {
+                    color: #155724;
+                }
+            
+                .btn-close:hover {
+                    color: #0b3d0b;
+                }
+            </style>
+            
+
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert" style="margin-top: 10px; border: 2px solid #28a745; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
+                <i class="bi bi-check-circle-fill" style="font-size: 20px; margin-right: 10px; color: #28a745;"></i>
+                <span class="flex-grow-1">{{ session('success') }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+            <script>
+                setTimeout(() => {
+                    let alert = document.querySelector('.alert');
+                    if (alert) {
+                        alert.classList.add('fade-out');
+                        setTimeout(() => alert.remove(), 500);
+                    }
+                }, 3000); // 3 detik
+            </script>
+            
+            <style>
+                .fade-out {
+                    opacity: 0;
+                    transition: opacity 0.5s ease-out;
+                }
+            </style>
+
+            
             <section class="bmw-admin" id="bmw-admin">
                 <div class="container text-center py-4">
                     <h2 class="fw-bold">Data Profile Alumni </h2>
@@ -140,7 +182,7 @@
                                             <td style="padding: 12px; font-size: 12px;">{{ $bmw->bekerja }} siswa</td>
                                             <td style="padding: 12px; font-size: 12px;">{{ $bmw->melanjutkan }} siswa</td>
                                             <td style="padding: 12px; font-size: 12px;">{{ $bmw->wirausaha }} siswa</td>
-                                            <td style="padding: 12px; font-size: 12px;"></td>
+                                            <td style="padding: 12px; font-size: 12px;">{{ $bmw->total }} siswa</td>
                                             <td style="padding: 12px;">
                                                 <div class="d-flex gap-2">
                                                     <!-- Tombol Edit -->
@@ -163,7 +205,7 @@
                                 <!-- Footer -->
                                 <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
                                     <tr>
-                                        <td colspan="7" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data alumni yang BMw Siswa <span style="color: #fde616;">RPL</span></td>
+                                        <td colspan="7" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data alumni yang BMW Siswa <span style="color: #fde616;">RPL</span></td>
                                     </tr>
                                 </tfoot>
                             </table>

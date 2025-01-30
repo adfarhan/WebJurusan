@@ -45,36 +45,13 @@
                 <!-- Wrapper Slider -->
                 <div class="pengajar-slider">
                     <div class="pengajar-track">
+                        @foreach($pengajars as $guru)
                         <div class="pengajar-card">
-                            <img src="assets/img/gedungrpl.jpg" alt="Guru 1">
-                            <h3>Jajat Sudrajat</h3>
-                            <p>Matematika Komputer</p>
+                            <img src="{{ asset('storage/' . $guru->foto) }}" alt="{{ $guru->nama }}">
+                            <h3>{{ $guru->nama }}</h3>
+                            <p>{{ $guru->jabatan }}</p>
                         </div>
-                        <div class="pengajar-card">
-                            <img src="https://via.placeholder.com/300" alt="Guru 2">
-                            <h3>Yanto</h3>
-                            <p>Algoritma & Pemrograman</p>
-                        </div>
-                        <div class="pengajar-card">
-                            <img src="https://via.placeholder.com/300" alt="Guru 3">
-                            <h3>Gilang</h3>
-                            <p>Basis Data</p>
-                        </div>
-                        <div class="pengajar-card">
-                            <img src="https://via.placeholder.com/300" alt="Guru 4">
-                            <h3>Ade Popon</h3>
-                            <p>Jaringan Komputer</p>
-                        </div>
-                        <div class="pengajar-card">
-                            <img src="https://via.placeholder.com/300" alt="Guru 5">
-                            <h3>Guru 5</h3>
-                            <p>Pemrograman Web</p>
-                        </div>
-                        <div class="pengajar-card">
-                            <img src="https://via.placeholder.com/300" alt="Guru 6">
-                            <h3>Guru 6</h3>
-                            <p>Sistem Operasi</p>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
         
@@ -90,7 +67,7 @@
         <section class="fasilitas mt-5">
             <div class="container">
                 <h1 class="fw-bold fs-2">FASILITAS</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                <p>Lorem ipsum dolor300 sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
                 <div class="grid">
                     <div class="grid-item" data-caption="Gedung RPL yang Modern">
                         <img src="assets/img/gedungrpl.jpg" alt="Coding on a laptop">

@@ -56,7 +56,7 @@
 }
 
 .teks-footer p{
-    text-align: left; l
+    text-align: justify; 
 }
 
 .footer-section p,
@@ -87,9 +87,9 @@
 
 /* Footer Bottom */
 .footer-bottom {
-    margin-top: 40px;
+    margin-top: 20px;
     border-top: 1px solid #3f3f3e;
-    padding-top: 20px;
+    padding-top: 40px;
     font-size: 0.9em;
 }
 
@@ -138,6 +138,9 @@
 }
 
 @media (max-width: 768px) {
-    .footer
+    .teks-footer p{
+        text-align: center;
+    }
+}
 
 </style>

@@ -4,12 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ProjekController;
+use App\Http\Controllers\ProfilaController;
+use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\TampilanController;
 use App\Http\Controllers\AlumniBmwController;
-use App\Http\Controllers\ProfilaController;
+use App\Http\Controllers\FromKontakController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\TampilanBackendController;
+use App\Http\Controllers\UbahPwController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +38,9 @@ Route::get('/kegiatan',[TampilanController::class, 'kegiatan'])->name('kegiatan'
 Route::get('/alumni-sekolah',[TampilanController::class, 'alumni'])->name('alumnis');
 Route::get('/kontak',[TampilanController::class, 'kontak'])->name('kontak');
 
+//kirim pesan
+Route::post('/kontak',[FromKontakController::class, 'kirimPesan'])->name('kirim.pesan');
+
 //login
 Route::get('login',[LoginController::class, 'tampilanLogin'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
@@ -49,6 +55,7 @@ Route::get('/admin/tampilan/beranda',[TampilanBackendController::class,  'berand
 Route::get('/admin/tampilan/tentang',[TampilanBackendController::class,  'tentangAdmin'])->name('tentangAdmin');
 Route::get('/admin/tampilan/kegiatan',[TampilanBackendController::class,  'kegiatanAdmin'])->name('kegiatanAdmin');
 Route::get('/admin/tampilan/alumni',[TampilanBackendController::class,  'alumniAdmin'])->name('alumniAdmin');
+Route::get('/admin/tampilan/kurikulum',[TampilanBackendController::class,  'kurikulumAdmin'])->name('kurikulumAdmin');
 
 Route::resource('berita', BeritaController::class);
 
@@ -64,7 +71,12 @@ Route::resource('alumni', AlumniBmwController::class);
 
 Route::resource('profil', ProfilaController::class);
 
+Route::resource('pengajars', PengajarController::class);
 
 
+});
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('ganti-password', [UbahPwController::class, 'showChangeForm'])->name('password.change');
+    Route::post('ganti-password', [UbahPwController::class, 'changePassword']);
 });
