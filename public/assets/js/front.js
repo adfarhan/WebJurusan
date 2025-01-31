@@ -113,108 +113,96 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Carousel prospek
-document.addEventListener('DOMContentLoaded', () => {
-    const prospek = document.querySelector('.prospek');
-    const indicators = document.querySelector('.indicators');
-    const cards = document.querySelectorAll('.prospek div');
-    let currentIndex = 0;
-    let isDragging = false;
-    let startX = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
 
-    // Fungsi untuk menghitung lebar kartu yang terlihat
-    const calculateCardWidth = () => {
-        const visibleCards = window.innerWidth >= 768 ? 3 : 1;
-        return prospek.offsetWidth / visibleCards;
-    };
+
+// Carousel prospek
+document.addEventListener("DOMContentLoaded", () => {
+    const prospek = document.querySelector(".prospek");
+    const indicators = document.querySelector(".indicators");
+    const cards = document.querySelectorAll(".prospek div");
+    const leftButton = document.querySelector(".nav-button.left");
+    const rightButton = document.querySelector(".nav-button.right");
+
+    let currentIndex = 0;
+    let cardWidth = calculateCardWidth();
+
+    // Fungsi untuk menghitung lebar kartu
+    function calculateCardWidth() {
+        return window.innerWidth >= 768 ? prospek.offsetWidth / 3 : prospek.offsetWidth; // Desktop: 3 kartu, Mobile: 1 kartu
+    }
 
     // Fungsi untuk menghitung jumlah slide total
-    const calculateTotalSlides = () => {
-        const visibleCards = window.innerWidth >= 768 ? 3 : 1;
-        return Math.ceil(cards.length / visibleCards);
-    };
+    function calculateTotalSlides() {
+        const cardsPerSlide = window.innerWidth >= 768 ? 3 : 1; // Desktop: 3 kartu, Mobile: 1 kartu
+        return Math.ceil(cards.length / cardsPerSlide);
+    }
 
-    // Fungsi untuk memperbarui indikator
-    const updateIndicators = () => {
-        indicators.innerHTML = '';
-        const totalSlides = calculateTotalSlides();
-        Array.from({ length: totalSlides }).forEach((_, index) => {
-            const indicator = document.createElement('span');
-            if (index === currentIndex) indicator.classList.add('active');
-            indicator.addEventListener('click', () => moveToSlide(index));
-            indicators.appendChild(indicator);
-        });
-    };
+    // Fungsi untuk memperbarui indikator (hanya di desktop)
+    function updateIndicators() {
+        if (window.innerWidth >= 768) {
+            indicators.innerHTML = "";
+            const totalSlides = calculateTotalSlides();
+
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement("span");
+                dot.classList.add("indicator-dot");
+                if (i === currentIndex) dot.classList.add("active");
+                dot.addEventListener("click", () => moveToSlide(i));
+                indicators.appendChild(dot);
+            }
+        } else {
+            indicators.innerHTML = ""; // Hapus indikator di mobile
+        }
+    }
 
     // Fungsi untuk berpindah ke slide tertentu
-    const moveToSlide = (index) => {
+    function moveToSlide(index) {
         currentIndex = index;
-        const visibleCards = window.innerWidth >= 768 ? 3 : 1;
-        const translateValue = -currentIndex * cardWidth * visibleCards;
+        const cardsPerSlide = window.innerWidth >= 768 ? 3 : 1; // Desktop: 3 kartu, Mobile: 1 kartu
+        const translateValue = -currentIndex * cardWidth * cardsPerSlide;
         prospek.style.transform = `translateX(${translateValue}px)`;
-        prospek.style.transition = 'transform 0.3s ease-in-out';
+        prospek.style.transition = "transform 0.3s ease-in-out";
 
-        // Update indikator
-        document.querySelectorAll('.indicators span').forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
-        });
-    };
+        if (window.innerWidth >= 768) {
+            document.querySelectorAll(".indicator-dot").forEach((dot, i) => {
+                dot.classList.toggle("active", i === currentIndex);
+            });
+        }
+    }
 
-    // Fungsi drag
-    const startDrag = (event) => {
-        isDragging = true;
-        startX = getPositionX(event);
-        prospek.style.transition = 'none';
-    };
+    // Event untuk tombol kiri
+    leftButton.addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            moveToSlide(currentIndex);
+        }
+    });
 
-    const drag = (event) => {
-        if (!isDragging) return;
-        const currentX = getPositionX(event);
-        const deltaX = currentX - startX;
-        currentTranslate = prevTranslate + deltaX;
-        prospek.style.transform = `translateX(${currentTranslate}px)`;
-    };
+    // Event untuk tombol kanan
+    rightButton.addEventListener("click", () => {
+        if (currentIndex < calculateTotalSlides() - 1) {
+            currentIndex++;
+            moveToSlide(currentIndex);
+        }
+    });
 
-    const endDrag = () => {
-        isDragging = false;
-        const movedBy = currentTranslate - prevTranslate;
-
-        const visibleCards = window.innerWidth >= 768 ? 3 : 1;
-        const threshold = cardWidth * visibleCards * 0.25;
-
-        if (movedBy < -threshold && currentIndex < calculateTotalSlides() - 1) currentIndex++;
-        if (movedBy > threshold && currentIndex > 0) currentIndex--;
-
-        moveToSlide(currentIndex);
-        prevTranslate = -currentIndex * cardWidth * visibleCards;
-    };
-
-    const getPositionX = (event) => {
-        return event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
-    };
-
-    // Event listeners untuk drag dan resize
-    prospek.addEventListener('mousedown', startDrag);
-    prospek.addEventListener('mousemove', drag);
-    prospek.addEventListener('mouseup', endDrag);
-    prospek.addEventListener('mouseleave', endDrag);
-
-    prospek.addEventListener('touchstart', startDrag);
-    prospek.addEventListener('touchmove', drag);
-    prospek.addEventListener('touchend', endDrag);
-
-    window.addEventListener('resize', () => {
+    // Event saat layar diresize
+    window.addEventListener("resize", () => {
         cardWidth = calculateCardWidth();
         updateIndicators();
         moveToSlide(currentIndex);
     });
 
     // Inisialisasi
-    let cardWidth = calculateCardWidth();
+    cardWidth = calculateCardWidth();
     updateIndicators();
     moveToSlide(currentIndex);
 });
+
+
+
+
+
+
 
 

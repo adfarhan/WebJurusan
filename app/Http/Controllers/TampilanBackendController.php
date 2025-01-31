@@ -7,6 +7,7 @@ use App\Models\Projek;
 use App\Models\Prestasi;
 use App\Models\AlumniBmw;
 use App\Models\Pengajar;
+use App\Models\Mapel;
 use App\Models\Profila;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
@@ -56,8 +57,10 @@ class TampilanBackendController extends Controller
     }
 
     public function kurikulumAdmin(){
-        return view('backend.tampilanback.kurikulumAdmin',[
+        $mapel = Mapel::all();
+        return view('backend.tampilanback.kurikulumAdmin', compact('mapel'),[
             'title' => 'Kurikulum | Admin'
         ]);
     }
 }
+

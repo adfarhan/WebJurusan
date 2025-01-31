@@ -133,11 +133,11 @@
                                                     </a>
                                                     
                                                     <!-- Delete Button with Icon -->
-                                                    <form action="{{ route('berita.destroy', $beritas) }}" method="POST">
+                                                    <form id="delete-form-{{ $beritas->id }}" action="{{ route('berita.destroy', $beritas->id) }}" method="POST" style="margin: 0;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;">
-                                                            <i class="fas fa-trash"></i> <!-- Trash icon for "Hapus" -->
+                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $beritas->id }})">
+                                                            <i class="fas fa-trash"></i>
                                                         </button>
                                                     </form>
                                                 </div>
@@ -253,10 +253,12 @@
                                                     <a href="{{ route('testimoni.edit', $testi->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff;"><i class="fas fa-edit"></i></a>
                                                     
                                                     <!-- Tombol Delete -->
-                                                    <form action="{{ route('testimoni.destroy', $testi->id) }}" method="POST" style="margin: 0;">
+                                                    <form id="delete-form-{{ $testi->id }}" action="{{ route('testimoni.destroy', $testi->id) }}" method="POST" style="margin: 0;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;"><i class="fas fa-trash"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $testi->id }})">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -320,6 +322,27 @@
             
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
+    </script>
 </x-layBack>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBxNwEX8pP6Gp9pO4cBvJcmKjc8dJg6R8KDgm9t0h7Ztq03A" crossorigin="anonymous"></script>

@@ -4,7 +4,7 @@
             <img src="assets/img/logo.png" alt="Logo" width="50" height="50" class="navbar-logo">
             <span class="brand-text">SMKN 1 KAWALI</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" id="navbarToggler" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -31,6 +31,8 @@
         </div>
     </div>
 </nav>
+
+
 
 
 <style>
@@ -115,12 +117,16 @@
 .ultra-modern-navbar .navbar-toggler {
     border: none;
     outline: none;
+    box-shadow: none;
 }
 
 .ultra-modern-navbar .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-    width: 30px;
-    height: 30px;
+    
+}
+.ultra-modern-navbar .navbar-toggler-icon.x {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' d='M6 6L24 24M6 24L24 6'/%3E%3C/svg%3E");
+    
 }
 
 /* Responsiveness Adjustments */
@@ -166,5 +172,19 @@
     }
 }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarNav = document.getElementById('navbarNav');
+        
+        navbarToggler.addEventListener('click', function () {
+            navbarNav.classList.toggle('collapse'); // Menambah atau menghapus kelas 'collapse' pada navbar
+            navbarNav.classList.toggle('show'); // Menambahkan kelas 'show' untuk menampilkan navbar
+            navbarToggler.querySelector('.navbar-toggler-icon').classList.toggle('x'); // Ganti ikon hamburger ke X
+        
+        });
+    });
+</script>
 
 

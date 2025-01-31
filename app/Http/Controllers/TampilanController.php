@@ -8,6 +8,7 @@ use App\Models\Profila;
 use App\Models\Pengajar;
 use App\Models\Prestasi;
 use App\Models\AlumniBmw;
+use App\Models\Mapel;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class TampilanController extends Controller
     }
 
     public function kurikulum(){
-        return view('frontend.tampilan.kurikulum',[
+        $mapel = Mapel::all();
+        return view('frontend.tampilan.kurikulum', compact('mapel'),[
             'title' => 'Jurusan RPL | Kurikulum'
         ]);
     }

@@ -10,6 +10,7 @@ use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\TampilanController;
 use App\Http\Controllers\AlumniBmwController;
 use App\Http\Controllers\FromKontakController;
+use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\TampilanBackendController;
 use App\Http\Controllers\UbahPwController;
@@ -72,6 +73,8 @@ Route::resource('alumni', AlumniBmwController::class);
 Route::resource('profil', ProfilaController::class);
 
 Route::resource('pengajars', PengajarController::class);
+
+Route::resource('matapelajaran', MataPelajaranController::class);
 
 
 });

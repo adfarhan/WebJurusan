@@ -1009,6 +1009,7 @@ body {
 
 
 /* Kurikulum*/
+
 .title-mata {
     display: flex;
     align-items: center;
@@ -1018,10 +1019,21 @@ body {
     color: #333;
     position: relative;
     text-align: center;
+    margin: 20px 0;
+}
+
+.title-mata::before,
+.title-mata::after {
+    content: "";
+    width: 60px;
+    height: 5px;
+    background-color: #ffcc00;
+    margin: 0 10px;
+    border-radius: 2px; 
 }
 
 .definisi-mata {
-    font-size: 17px;
+    font-size: 16px;
     color: #666;
     margin-bottom: 40px;
     margin-top: 5px;
@@ -1033,6 +1045,24 @@ body {
     text-align: center;
 }
 
+.mata-pelajaran {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.mata-pelajaran .title-mata {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.mata-pelajaran .definisi-mata {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
 .mata-pelajaran .carousel-wrapper {
     display: flex;
     align-items: center;
@@ -1041,6 +1071,7 @@ body {
     margin: 20px auto;
     max-width: 900px;
     position: relative;
+    overflow: visible;
 }
 
 .mata-pelajaran .carousel {
@@ -1053,8 +1084,8 @@ body {
 .mata-pelajaran .carousel-item {
     min-width: 100%;
     opacity: 0;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transform: scale(0.8) translateX(100%);
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.7s ease-in-out;
     position: absolute;
     top: 0;
     left: 0;
@@ -1062,18 +1093,21 @@ body {
 
 .mata-pelajaran .carousel-item.active {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1) translateX(0);
     position: relative;
+    z-index: 2;
 }
 
 .mata-pelajaran .carousel-item.prev {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: scale(0.8) translateX(-100%);
+    z-index: 1;
 }
 
 .mata-pelajaran .carousel-item.next {
     opacity: 0;
-    transform: translateX(100%);
+    transform: scale(0.8) translateX(100%);
+    z-index: 1;
 }
 
 .mata-pelajaran .carousel-button {
@@ -1104,6 +1138,7 @@ body {
     position: relative;
     margin-left: 10px;
 }
+
 .mata-pelajaran .carousel-dots {
     text-align: center;
     margin-top: 15px;
@@ -1142,20 +1177,22 @@ body {
     border: none;
     padding: 25px;
     text-align: center;
-    background: #fde616; /* Latar belakang gradasi selalu ada */
-    border-radius: 20px; /* Ujung membulat */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Bayangan lembut sesuai dengan border-radius */
-    overflow: hidden; /* Untuk memastikan elemen dalam card tidak melampaui batas radius */
-    cursor: pointer; /* Memberikan indikator interaktif */
+    background: #fde616; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+    overflow: visible; 
+    cursor: pointer; 
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .card-mata:hover {
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Bayangan saat hover lebih dalam */
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); 
 }
 
 .card-mata:active {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bayangan sedikit mengecil */
-    background: #fde616; /* Warna aktif gradasi kuning ke oranye */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+    background: #fde616; 
 }
 
 .card-mata h3 {
@@ -1164,6 +1201,36 @@ body {
     font-style: italic;
     color: #000;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 768px) {
+    .mata-pelajaran .carousel {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .mata-pelajaran .carousel-item {
+        width: 100%;
+        min-width: 100%;
+        transform: scale(1) translateX(100%);
+    }
+
+    .mata-pelajaran .carousel-item.active {
+        transform: scale(1) translateX(0);
+    }
+
+    .mata-pelajaran .carousel-item.prev {
+        transform: scale(1) translateX(-100%);
+    }
+
+    .mata-pelajaran .carousel-item.next {
+        transform: scale(1) translateX(100%);
+    }
+
+    .card-mata {
+        width: 90%;
+        max-width: none;
+        margin: 0 auto;
+    }
 }
 
 /*Kurikulum struktur*/
@@ -1289,7 +1356,7 @@ body {
     margin-bottom: 15px;
     position: relative;
     display: inline-block;
-    margin-top: 0; /* Hilangkan jarak atas bawaan */
+    margin-top: 0;
 }
 
 .program-title::after {
@@ -1317,10 +1384,47 @@ body {
 }
 
 .program-image img {
-    max-width: 75%;
+    max-width: 100%; /* Pastikan gambar mengisi penuh elemen kontainer */
     height: auto;
     border-radius: 5px;
 }
+
+/* Penyesuaian untuk perangkat desktop */
+@media screen and (min-width: 769px) {
+    .program-container {
+        flex-direction: row; /* Gambar dan teks sejajar secara horizontal */
+    }
+
+    .program-text, .program-image {
+        max-width: 100%; /* Teks dan gambar menyesuaikan batas kontainer */
+    }
+
+    .program-image img {
+        max-width: 75%; /* Membuat gambar sejajar dengan batas teks */
+    }
+}
+
+/* Penyesuaian untuk perangkat mobile */
+@media screen and (max-width: 768px) {
+    .program-container {
+        flex-direction: column; /* Menumpuk gambar dan teks secara vertikal di perangkat mobile */
+        align-items: center; /* Menyelaraskan konten ke tengah */
+    }
+
+    .program-text {
+        max-width: 100%; /* Membuat teks mengambil lebar penuh */
+        text-align: center; /* Menyelaraskan teks di tengah di perangkat mobile */
+    }
+
+    .program-image {
+        max-width: 100%; /* Membuat gambar mengambil lebar penuh */
+    }
+
+    .program-image img {
+        max-width: 100%; /* Membuat gambar lebih besar di perangkat mobile */
+    }
+}
+
 
 .title-bidangrpl {
     margin-bottom: 40px;
@@ -1353,16 +1457,18 @@ body {
     margin: 0 10px;
     border-radius: 2px;
 }
-
 .prospek-wrapper {
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .prospek {
     display: flex;
+    gap: 15px; /* Jarak antar kartu */
     transition: transform 0.3s ease-in-out;
     cursor: grab;
 }
@@ -1371,27 +1477,57 @@ body {
     font-size: 22px;
     font-weight: 700;
     margin-bottom: 15px;
+    color: #333;
 }
 
-.prospek:active {
-    cursor: grabbing;
+.prospek p {
+    font-size: 16px;
+    color: #555;
 }
+
 
 .prospek div {
-    flex: 0 0 100%;
+    flex: 0 0 calc((100% - 30px) / 3); /* Ukuran untuk 3 card per slide di desktop */
+    max-width: calc((100% - 30px) / 3); /* Ukuran maksimal */
+    height: auto; /* Membuat tinggi mengikuti konten */
     text-align: center;
-    background: #f9f9f9;
+    background: linear-gradient(145deg, #fde616, #ffeb6d);
     border-radius: 20px;
     padding: 25px;
     box-sizing: border-box;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
 .prospek div:hover {
-    /* transform: scale(1.05); */
-    background: #fde616;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px) scale(1.05);
+    background: linear-gradient(145deg, #fde616, #ffeb6d);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.nav-button.left {
+    left: 10px;
+}
+
+.nav-button.right {
+    right: 10px;
+}
+
+.nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .indicators {
@@ -1404,25 +1540,80 @@ body {
 .indicators span {
     width: 10px;
     height: 10px;
+    margin: 0 5px;
     background: #ccc;
     border-radius: 50%;
     cursor: pointer;
-    transition: background 3s ease;
+    transition: background 0.3s;
 }
 
 .indicators span.active {
     background: #fde616;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+    .prospek-wrapper {
+        overflow-x: hidden; /* Menghilangkan scroll horizontal di luar wrapper */
+        padding: 0 10px; /* Memberi sedikit padding di kiri dan kanan */
+    }
+
     .prospek {
-        gap: 15px;
+        flex-direction: row;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling untuk perangkat iOS */
+        gap: 15px; /* Menambahkan jarak antar card */
+        padding: 10px; /* Tambahkan padding dalam slider untuk jarak */
     }
 
     .prospek div {
-        flex: 0 0 calc((100% - 40px) / 3);
+        flex: 0 0 90%; /* Setiap card sedikit lebih kecil dari viewport */
+        max-width: 90%; /* Card tidak lebih besar dari lebar viewport */
+        scroll-snap-align: center; /* Card selalu di tengah layar saat discroll */
+        text-align: left;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .prospek div h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .prospek div p {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .indicators {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .indicators span {
+        width: 10px;
+        height: 10px;
+        background: #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .indicators span.active {
+        background: #fde616;
+    }
+
+    .nav-button {
+        display: none;
     }
 }
+
+.prospek-wrapper {
+    scroll-behavior: smooth;
+}
+
 
 @media (max-width: 768px) {
     .structure-cards {
@@ -1430,7 +1621,7 @@ body {
         align-items: center;
     }
 
-    .program-container {
+    /* .program-container {
         flex-direction: column;
         align-items: center;
     }
@@ -1442,8 +1633,10 @@ body {
 
     .program-image {
         max-width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px; */
     }
-}
+
 
 /* Tampilan Kegiatan */
 .title {

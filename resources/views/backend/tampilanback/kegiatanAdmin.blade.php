@@ -105,10 +105,12 @@
                                                     <a href="{{ route('projek.edit', $tugas->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
                                                     
                                                     <!-- Tombol Delete -->
-                                                    <form action="{{ route('projek.destroy', $tugas->id) }}" method="POST" style="margin: 0;">
+                                                    <form id="delete-form-{{ $tugas->id }}" action="{{ route('projek.destroy', $tugas->id) }}" method="POST" style="margin: 0;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;"><i class="fas fa-trash"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $tugas->id }})">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -191,10 +193,12 @@
                                                     <a href="{{ route('prestasi.edit', $pres->id) }}" class="btn btn-warning btn-sm"  style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
                                                     
                                                     <!-- Tombol Delete -->
-                                                    <form action="{{ route('prestasi.destroy', $pres->id) }}" method="POST" style="margin: 0;">
+                                                    <form id="delete-form-{{ $pres->id }}" action="{{ route('prestasi.destroy', $pres->id) }}" method="POST" style="margin: 0;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;"><i class="fas fa-trash"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $pres->id }})">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -221,4 +225,24 @@
             </section>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
+    </script>
 </x-layBack>

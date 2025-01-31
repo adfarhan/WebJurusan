@@ -1,46 +1,40 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-        <section class="mata-pelajaran mt-5">
-            <h2 class="title-mata">Mata Pelajaran</h2>
-            <p class="definisi-mata">Materi yang akan ditempuh dan dipelajari selama menjadi pelajar di jurusan Rekayasa Perangkat Lunak.</p>
-            <div class="carousel-wrapper">
-                <button class="carousel-button prev">&#8249;</button>
-                <div class="carousel">
-                    <div class="carousel-item active">
-                        <div class="card card-mata">
-                            <h3>Front End</h3>
-                            <p>Belajar dasar-dasar HTML, CSS, dan JavaScript untuk membangun website interaktif.</p>
+    <section class="mata-pelajaran mt-5 text-center">
+        <h2 class="title-mata">Mata Pelajaran</h2>
+        <p class="definisi-mata">Materi yang akan ditempuh dan dipelajari selama menjadi pelajar di jurusan Rekayasa Perangkat Lunak.</p>
+        
+        <div class="carousel-wrapper position-relative">
+            <button class="carousel-button prev" onclick="moveSlide(-1)">&#8249;</button>
+            
+            <div class="carousel-container overflow-hidden">
+                <div class="carousel d-flex">
+                    @if($mapel->count() > 0)
+                        @foreach($mapel as $pelajaran)
+                        <div class="carousel-item">
+                            <div class="card card-mata">
+                            <h3>{{ $pelajaran->nama_mapel }}</h3>
+                            <p>{{ $pelajaran->deskripsi }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-mata">
-                            <h3>Back End</h3>
-                            <p>Belajar pemrograman server-side menggunakan Node.js dan database.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-mata">
-                            <h3>UI/UX Design</h3>
-                            <p>Mempelajari desain antarmuka yang menarik dan pengalaman pengguna yang optimal.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-mata">
-                            <h3>Pengembangan Gim</h3>
-                            <p>Mempelajari proses desain, pengembangan, dan pengujian gim interaktif, mulai dari konsep awal hingga implementasi final..</p>
-                        </div>
-                    </div>
-                    
+                        @endforeach
+                    @else
+                        <p class="center-text">Tidak ada data mata pelajaran</p>
+                    @endif
                 </div>
-                <button class="carousel-button next">&#8250;</button>
-            </div>  
-            <div class="carousel-dots">
-                <span class="dot" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
-                <span class="dot" data-slide="3"></span>
-            </div>         
-        </section>
+                
+            </div>
+    
+            <button class="carousel-button next" onclick="moveSlide(1)">&#8250;</button>
+        </div>
+    
+        <div class="carousel-dots text-center mt-3">
+            @foreach($mapel as $key => $pelajaran)
+            <span class="dot" onclick="setSlide({{ $key }})"></span>
+            @endforeach
+        </div>
+    </section>
+    
 
 
         <section class="kurikulum-struktur">
@@ -87,6 +81,7 @@
                     <h2>Prospek Kerja</h2>
                     <p class="section-definition">Bidang Rekayasa Perangkat Lunak menawarkan peluang kerja yang luas dan menjanjikan seiring dengan pesatnya perkembangan teknologi digital di berbagai sektor. Berikut adalah beberapa prospek kerja utama di bidang ini:</p>
                     <div class="prospek-wrapper">
+                        <button class="nav-button left">&lt;</button>
                         <div class="prospek">
                             <div>
                                 <h3>Software Developer/Engineer</h3>
@@ -113,6 +108,7 @@
                                 <p>Mengembangkan gim interaktif untuk berbagai platform, termasuk PC, konsol, dan perangkat mobile.</p>
                             </div>
                         </div>
+                        <button class="nav-button right">&gt;</button>
                         <div class="indicators mt-5"></div>
                     </div>
                 </div>
