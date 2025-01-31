@@ -6,6 +6,7 @@ use App\Models\Berita;
 use App\Models\Projek;
 use App\Models\Profila;
 use App\Models\Pengajar;
+use App\Models\Kebiasaan;
 use App\Models\Prestasi;
 use App\Models\AlumniBmw;
 use App\Models\Mapel;
@@ -38,8 +39,9 @@ class TampilanController extends Controller
 
     public function kegiatan(){
         $projek = Projek::all();
+        $kebiasaan = Kebiasaan::all();
         $prestasis = Prestasi::paginate(3);
-        return view('frontend.tampilan.kegiatan', compact('prestasis', 'projek'),[
+        return view('frontend.tampilan.kegiatan', compact('prestasis', 'projek', 'kebiasaan'),[
             'title' => 'Jurusan RPL | Kegiatan'
         ]);
     }

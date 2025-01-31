@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjekController;
 use App\Http\Controllers\ProfilaController;
 use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PrestasiController;
+use App\Http\Controllers\KebiasaanController;
 use App\Http\Controllers\TampilanController;
 use App\Http\Controllers\AlumniBmwController;
 use App\Http\Controllers\FromKontakController;
@@ -67,6 +68,8 @@ Route::get('/admin/Konfirmasi/testimoni', [TestimoniController::class, 'adminInd
 Route::resource('prestasi', PrestasiController::class);
 
 Route::resource('projek', ProjekController::class);
+
+Route::resource('kebiasaan', KebiasaanController::class);
 
 Route::resource('alumni', AlumniBmwController::class);
 

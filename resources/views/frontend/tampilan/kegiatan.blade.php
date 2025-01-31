@@ -25,7 +25,7 @@
                         <div class="card-text">
                             <h2>English Club</h2>
                             <p style="text-align: justify;">
-                                Perluas kemampuan bahasa Inggris Anda dengan aktivitas seru seperti debat, presentasi, dan diskusi dalam suasana yang mendukung.
+                                Perluas kemampuan bahasa Inggris Anda dengan aktivitas seru seperti debat, presentasi, dan diskusi dalam suasana mendukung.
                             </p>
                         </div>
                         <div class="card-image">
@@ -45,7 +45,6 @@
         <p class="teks-proyek mb-5">Berikut adalah hasil karya website dari siswa dan siswi jurusan RPL yang kreatif dan inovatif:</p>
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-
                 <!-- Item 1 -->
                 @foreach($projek as $tugas)
                 <div class="carousel-item active">
@@ -62,8 +61,6 @@
                     </div>
                 </div>
                 @endforeach
-                <!-- Item 2 -->
-                
             </div>
             <!-- Controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -79,7 +76,7 @@
     
 
     <!-- Prestasi Section -->
-    <section class="prestasi-siswa mt-5" id="prestasi" style="margin-bottom: 80px; ">
+    <section class="prestasi-siswa mt-5" id="prestasi">
         <div class="title-prestasi">Prestasi</div>
         <p class="text-muted text-center mb-5">
             Beragam pencapaian membanggakan yang diraih oleh siswa kami di berbagai bidang.
@@ -91,7 +88,7 @@
                     <h5 class="student-name">{{ $pres->nama_siswa }}</h5>
                     <span class="class-info">Kelas: {{ $pres->kelas }}</span>
                 </div>
-                <div class="card-image">
+                <div class="card-photo">
                     <img src="{{ asset('storage/' . $pres->gambar) }}" 
                                                             alt="{{ $pres->nama_siswa }}">
                 </div>
@@ -150,27 +147,16 @@
         <h2 class="title-kegiatan">Kebiasaan Posistif</h2>
         <p class="section-deskripsi">Berbagai momen luar biasa yang menunjukkan kebersamaan dan kreativitas siswa RPL.</p>
         <div class="gallery">
+            @foreach($kebiasaan as $biasa)
             <div class="gallery-item" onclick="openModal(this)">
-                <img src="assets/img/gedungrpl.jpg" alt="Kegiatan 1">
+                <img src="{{ asset('storage/' . $biasa->gambar) }}" alt="{{ $biasa->judul }}">
                 <div class="gallery-caption">
-                    <h3>Bersama dalam kebersamaan</h3>
-                    <p>Momen spesial ketika belajar dan beraktivitas bersama.</p>
+                    <h3>{{ $biasa->judul }}</h3>
+                    <p>{{ $biasa->deskripsi }}</p>
                 </div>
             </div>
-            <div class="gallery-item" onclick="openModal(this)">
-                <img src="assets/img/gedungrpl.jpg" alt="Kegiatan 2">
-                <div class="gallery-caption">
-                    <h3>Semangat Pagi</h3>
-                    <p>Awali hari dengan semangat dan energi positif.</p>
-                </div>
-            </div>
-            <div class="gallery-item" onclick="openModal(this)">
-                <img src="assets/img/gedungrpl.jpg" alt="Kegiatan 3">
-                <div class="gallery-caption">
-                    <h3>Kreativitas Tanpa Batas</h3>
-                    <p>Berinovasi dan berkreasi dengan berbagai karya hebat.</p>
-                </div>
-            </div>
+            @endforeach
+        </div>
             <!-- Tambahkan lebih banyak elemen gallery-item -->
         </div>
     </section>

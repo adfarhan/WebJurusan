@@ -223,6 +223,88 @@
                     </div>
                 </div>
             </section>
+
+            <section class="projek-admin" id="projek-admin">
+                <div class="container text-center py-4">
+                    <h2 class="fw-bold">Data Kebiasaan</h2>
+                    <p class="text-muted">Berikut adalah daftar Kebiasaan.</p>
+                    <div class="underline mx-auto"></div>
+                </div>
+
+                <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
+                    <div>
+                        <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
+                            <p class="text-dark fw-bold">Data-Data Kebiasaan  <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
+                            <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
+                                <!-- Header -->
+                                <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
+                                    <tr style="border-bottom: 2px solid #5f5f58;">
+                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
+                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Judul Kebiasaan</th>
+                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Deskripsi</th>
+                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Poto</th>
+                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <!-- Body -->
+                                @if ($kebiasaan->isEmpty())
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="6" class="text-center" style="font-size: 13px; padding: 12px; color: #5f5f58;">Belum ada data Projek tersedia.</td>
+                                        </tr>
+                                    </tbody>
+                                @else
+                                @foreach($kebiasaan as $biasa)
+                                    <tbody style="background-color: #fff; color: #000;">
+                                        <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e;">
+                                            <td style="padding: 12px;">{{ $loop->iteration }}.</td>
+                                            <td style="padding: 12px; font-size: 13px;">{{ $biasa->judul }}</td>
+                                            <td style="padding: 12px; font-size: 12px;">{{ $biasa->deskripsi }}</td>
+                                            <td style="padding: 12px;">
+                                                <div style="width: 100px; height: 75px; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ccc;">
+                                                    <img src="{{ asset('storage/' . $biasa->gambar) }}" 
+                                                            alt="{{ $biasa->nama_siswa }}" 
+                                                            style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                                </div>
+                                            </td>
+                                            <td style="padding: 12px;">
+                                                <div class="d-flex gap-2">
+                                                    <!-- Tombol Edit -->
+                                                    <a href="{{ route('projek.edit', $biasa->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
+                                                    
+                                                    <!-- Tombol Delete -->
+                                                    <form action="{{ route('projek.destroy', $biasa->id) }}" method="POST" style="margin: 0;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;"><i class="fas fa-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                @endforeach
+                                @endif
+                                
+                                <!-- Footer -->
+                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
+                                    <tr>
+                                        <td colspan="6" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data Kebiasaan <span style="color: #fde616;">RPL</span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
+                        <a href="{{ route('kebiasaan.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
+                            Tambah Data</a>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

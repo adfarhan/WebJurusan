@@ -137,10 +137,18 @@
     }
 }
 
-@media (max-width: 768px) {
-    .teks-footer p{
-        text-align: center;
+@media (max-width: 560px) {
+    .footer .container h3 {
+        text-align: left;
+    }
+
+    .footer ul li {
+        text-align: left;
+    }
+
+    .footer .social-links li{
+        font-size: 10px;
+        
     }
 }
-
 </style>

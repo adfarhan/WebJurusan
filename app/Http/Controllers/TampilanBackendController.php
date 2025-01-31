@@ -10,6 +10,7 @@ use App\Models\Pengajar;
 use App\Models\Mapel;
 use App\Models\Profila;
 use App\Models\Testimoni;
+use App\Models\Kebiasaan;
 use Illuminate\Http\Request;
 
 class TampilanBackendController extends Controller
@@ -51,7 +52,8 @@ class TampilanBackendController extends Controller
     public function kegiatanAdmin(){
         $prestasis = Prestasi::all();
         $projek = Projek::all();
-        return view('backend.tampilanback.kegiatanAdmin', compact('prestasis','projek'),[
+        $kebiasaan = Kebiasaan::all();
+        return view('backend.tampilanback.kegiatanAdmin', compact('prestasis','projek', 'kebiasaan'),[
             'title' => 'Kegaiatan | Admin'
         ]);
     }

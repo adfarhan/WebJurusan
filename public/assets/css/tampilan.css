@@ -1638,7 +1638,7 @@ body {
     }
 
 
-/* Tampilan Kegiatan */
+/* Tampilan Kegiatan extra*/
 .title {
     display: flex;
     align-items: center;
@@ -1671,10 +1671,11 @@ body {
 
 .card-container {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 40px; /* Improved spacing between cards */
-    margin-bottom: 40px; /* Added margin to separate cards from surrounding content */
+    flex-direction: row; /* Mengatur card agar sejajar secara horizontal */
+    flex-wrap: wrap; /* Membuat card turun ke baris berikutnya jika tidak cukup ruang */
+    justify-content: center; /* Mengatur card agar sejajar di tengah */
+    gap: 20px; /* Memberikan jarak antar card */
+    margin-bottom: 75px; /* Memberikan margin bawah pada container */
 }
 
 .card-content {
@@ -1714,7 +1715,7 @@ body {
 }
 
 .card-image img {
-    max-width: 150px; /* Menentukan ukuran gambar agar tidak terlalu besar */
+    max-width: 100px; /* Menentukan ukuran gambar agar tidak terlalu besar */
     height: auto;
     border-radius: 12px;
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); */
@@ -1727,6 +1728,7 @@ body {
 .card:nth-child(even) {
     align-self: flex-end;
 }
+
 
 /* prestasi */
 /* Section Styling */
@@ -1755,13 +1757,19 @@ body {
     transition: transform 0.6s ease-in-out;
 }
 
-.carousel .carousel-item img {
-    border-radius: 12px;
-    transition: transform 0.3s ease-in-out;
+/* Perbaikan pada Gambar di Card */
+.proyek-siswa .card img {
+    width: 100%; /* Pastikan gambar memenuhi lebar card */
+    height: 200px; /* Tetapkan tinggi yang konsisten */
+    object-fit: cover; /* Buat gambar tetap proporsional dan mengisi area */
+    border-radius: 12px; /* Sudut membulat agar serasi */
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.95); /* Tambahkan sedikit filter untuk kecerahan */
 }
 
-.carousel .carousel-item img:hover {
-    transform: scale(1.05);
+.proyek-siswa .card img:hover {
+    transform: scale(1.05); /* Efek zoom saat hover */
+    filter: brightness(1); /* Kembalikan kecerahan penuh */
 }
 
 /* Card Styling */
@@ -1868,16 +1876,20 @@ body {
 }
 
 /* Card Image */
-.card-prestasi .card-image {
-    height: 200px;
+.card-prestasi .card-photo {
+    height: 250px; /* Sesuaikan tinggi */
+    width: 100%; /* Pastikan lebar gambar mengikuti lebar kartu */
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.card-prestasi .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-bottom: 4px solid #ffc107;
+.card-prestasi .card-photo img {
+    width: 100%; /* Gambar memenuhi lebar area */
+    height: auto; /* Tinggi otomatis mengikuti proporsi gambar */
+    object-fit: cover; /* Memastikan gambar tetap proporsional */
+    object-position: center; /* Fokus pada tengah gambar */
 }
 
 /* Card Body */
@@ -2121,7 +2133,7 @@ input[type="radio"]:checked + .card + .detail {
 
 .gallery-item:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
 }
 
 .gallery-item img {
@@ -2143,7 +2155,7 @@ input[type="radio"]:checked + .card + .detail {
     width: 100%;
     text-align: center;
     padding: 15px;
-    font-size: 1rem;
+    font-size: 5px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
@@ -2869,5 +2881,26 @@ input[type="radio"]:checked + .card + .detail {
     .pemberian-testimoni p {
         font-size: 0.9em; /* Ukuran teks deskripsi lebih kecil */
         margin-top: 8px;
+    }
+}
+
+/* mobile halaman kegiatan */
+@media (max-width: 576px) {
+    .kegiatan-container .gallery-caption h3 {
+        font-size: 15px;
+    }
+    .kegiatan-container .gallery-caption p {
+        font-size: 10px;
+    }
+    .kegiatan-container .gallery-item {
+        height: 150px;
+    }
+    .proyek-siswa .carousel-item {
+        padding: 0px 10px 0px 10px;
+
+    }
+    .proyek-siswa .title-proyek {
+        font-size: 20px;
+        padding-bottom: 5px;
     }
 }
