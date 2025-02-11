@@ -107,10 +107,12 @@
                                                     <a href="{{ route('pengajars.edit', $guru->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
                                                     
                                                     <!-- Tombol Delete -->
-                                                    <form action="{{ route('pengajars.destroy', $guru->id) }}" method="POST" style="margin: 0;">
+                                                    <form action="{{ route('pengajars.destroy', $guru->id) }}" method="POST" class="delete-form">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;"><i class="fas fa-trash"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-sm delete-btn" style="border: 3px solid #939090; border-radius: 10px;">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -137,4 +139,29 @@
             </section>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.querySelectorAll(".delete-btn");
+
+        deleteButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+                Swal.fire({
+                    title: "Apakah Anda yakin?",
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Ya, Hapus!",
+                    cancelButtonText: "Batal",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.closest("form").submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
 </x-layBack>

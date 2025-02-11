@@ -150,9 +150,13 @@
     }
 
     .ultra-modern-navbar .navbar-collapse {
-        background: #ffffff; /* Warna latar belakang dropdown */
-        border-radius: 8px;
-        padding: 10px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white; /* Pastikan tetap terlihat */
+        z-index: 999;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan agar terlihat lebih elegan */
     }
 
     .ultra-modern-navbar .nav-item {

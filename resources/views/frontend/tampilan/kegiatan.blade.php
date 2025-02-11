@@ -1,3 +1,4 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <section class="kegiatan-extra">
@@ -6,7 +7,7 @@
             <p class="subtitle">Berikut adalah beberapa ekstrakurikuler yang relevan dengan jurusan RPL:</p>
     
             <div class="card-container">
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-content">
                         <div class="card-text">
                             <h2>Ekstrakurikuler IT</h2>
@@ -18,7 +19,7 @@
                             <img src="{{ asset('assets/img/logo.png') }}" alt="Ekstrakurikuler IT Logo">
                         </div>
                     </div>
-                </div>
+                </div> -->
     
                 <div class="card">
                     <div class="card-content">
@@ -26,6 +27,19 @@
                             <h2>English Club</h2>
                             <p style="text-align: justify;">
                                 Perluas kemampuan bahasa Inggris Anda dengan aktivitas seru seperti debat, presentasi, dan diskusi dalam suasana mendukung.
+                            </p>
+                        </div>
+                        <div class="card-image">
+                            <img src="{{ asset('assets/img/logo.png') }}" alt="English Club Logo">
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h2>Extrakulikuler IT</h2>
+                            <p style="text-align: justify;">
+                                Tingkatkan keahlian Anda dalam teknologi informasi melalui kegiatan yang melibatkan coding, desain web, dan pemrograman.
                             </p>
                         </div>
                         <div class="card-image">
@@ -45,34 +59,35 @@
         <p class="teks-proyek mb-5">Berikut adalah hasil karya website dari siswa dan siswi jurusan RPL yang kreatif dan inovatif:</p>
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <!-- Item 1 -->
                 @foreach($projek as $tugas)
-                <div class="carousel-item active">
-                    <div class="d-flex justify-content-center">
-                        <div class="card p-3" style="width: 28rem; transition: none; transform:none;">
-                            <img src="{{ asset('storage/' . $tugas->gambar) }}" alt="{{ $tugas->nama_siswa }}"  class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $tugas->judul_projek }}</h5>
-                                <p class="card-text">
-                                    {{ $tugas->deskripsi }}.
-                                </p>
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                        <div class="d-flex justify-content-center">
+                            <div class="card p-3" style="width: 28rem; transition: none; transform:none;">
+                                <img src="{{ asset('storage/' . $tugas->gambar) }}" alt="{{ $tugas->judul_projek }}" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $tugas->judul_projek }}</h5>
+                                    <p class="card-text">{{ $tugas->deskripsi }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
-            <!-- Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+<!-- 
+            @if(count($projek) > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            @endif -->
         </div>
     </section>
+
+
     
 
     <!-- Prestasi Section -->
@@ -170,3 +185,13 @@
     
 
 </x-layout>
+<script>
+    var carouselElement = document.querySelector('#carouselExample');
+    var carousel = new bootstrap.Carousel(carouselElement, {
+        interval: 2000, // Waktu antara peralihan slide
+        ride: 'carousel'
+    });
+</script>
+<!-- JS Bootstrap (pastikan di bawah jQuery dan Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

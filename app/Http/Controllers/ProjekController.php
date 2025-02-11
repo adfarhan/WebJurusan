@@ -12,7 +12,8 @@ class ProjekController extends Controller
     public function index()
     {
         $projek = Projek::all();
-        return view('backend.tampilanback.kegiatanAdmin', compact('projek'));
+        $firstProjek = $projek->first(); 
+        return view('backend.tampilanback.kegiatanAdmin', compact('projek', 'firstProjek'));
     }
 
     public function create()

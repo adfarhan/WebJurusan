@@ -1315,7 +1315,7 @@ body {
 }
 
 .struktur-card ul li::before {
-    content: "•";
+    content: "";
     position: absolute;
     left: 0;
     font-size: 20px;
@@ -1749,12 +1749,28 @@ body {
 
 /* Carousel Styling */
 .carousel .carousel-inner {
-    position: relative;
-    margin-top: 20px;
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 15px; /* Tambahkan jarak antar card */
+    scrollbar-width: none;
+}
+
+.carousel-inner::-webkit-scrollbar {
+    display: none; /* Menyembunyikan scrollbar */
 }
 
 .carousel .carousel-item {
-    transition: transform 0.6s ease-in-out;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    margin-right: 20px;
+}
+
+.carousel .carousel-item img {
+    width: 100%;
+    height: 250px; /* Atur tinggi gambar */
+    object-fit: cover;
 }
 
 /* Perbaikan pada Gambar di Card */
@@ -1763,13 +1779,7 @@ body {
     height: 200px; /* Tetapkan tinggi yang konsisten */
     object-fit: cover; /* Buat gambar tetap proporsional dan mengisi area */
     border-radius: 12px; /* Sudut membulat agar serasi */
-    transition: transform 0.3s ease, filter 0.3s ease;
     filter: brightness(0.95); /* Tambahkan sedikit filter untuk kecerahan */
-}
-
-.proyek-siswa .card img:hover {
-    transform: scale(1.05); /* Efek zoom saat hover */
-    filter: brightness(1); /* Kembalikan kecerahan penuh */
 }
 
 /* Card Styling */
@@ -1819,11 +1829,23 @@ body {
     background-color: #e0a800;
 }
 
+/* Pastikan item dalam carousel tampil */
+.carousel .carousel-inner .carousel-item {
+    display: block;
+    opacity: 1;
+}
+
+/* Sembunyikan tombol jika hanya ada satu item */
+.carousel-control-prev,
+.carousel-control-next {
+    display: none;
+}
+
 /* prestasi siwa */
 /* Card Container */
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 20px;
     padding: 0 10px;
 }
@@ -2712,6 +2734,16 @@ input[type="radio"]:checked + .card + .detail {
     .keunggulan-jurusan .card-title {
         font-size: 1.1rem;
     }
+
+    /* kegiatan */
+    .kegiatan-extra .card-container {
+        display: flex;
+        flex-direction: column; /* Agar kartu tersusun atas-bawah */
+        gap: 15px; /* Jarak antar kartu */
+    }
+    .kegiatan-extra .card-image {
+        margin-right: 15px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -2728,6 +2760,7 @@ input[type="radio"]:checked + .card + .detail {
         max-width: 50px;
     }
 }
+
 
 @media (max-width: 768px) {
     /* For small tablets */
@@ -2886,6 +2919,19 @@ input[type="radio"]:checked + .card + .detail {
 
 /* mobile halaman kegiatan */
 @media (max-width: 576px) {
+    .kegiatan-extra .card {
+        border: none; /* Hilangkan border */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Bayangan halus */
+        border-radius: 10px; /* Sudut membulat */
+        padding: 20px;
+        transition: all 0.3s ease-in-out;
+    }
+    .kegiatan-extra .card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Efek hover */
+    }
+    .card-image{
+        display: none;
+    }
     .kegiatan-container .gallery-caption h3 {
         font-size: 15px;
     }
@@ -2902,5 +2948,11 @@ input[type="radio"]:checked + .card + .detail {
     .proyek-siswa .title-proyek {
         font-size: 20px;
         padding-bottom: 5px;
+    }
+}
+/* mobile halaman alumni */
+@media (max-width: 576px) {
+    .image-alumni {
+        margin-top: 25px;
     }
 }
