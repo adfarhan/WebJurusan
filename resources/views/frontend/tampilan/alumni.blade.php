@@ -59,22 +59,36 @@
                             Data Siswa Alumni RPL
                         </h2>
                         <p class="text-muted" style="font-size: 1rem; line-height: 1.6;">
-                            Informasi tentang data siswa jurusan RPL yang BMW (Bekerja, Melanjutkan pendidikan, atau Wirausaha)
+                            Informasi 3 tahun kebelakang tentang data siswa jurusan RPL yang BMW (Bekerja, Melanjutkan pendidikan, atau Wirausaha)
                         </p>
                     </div>
                     <div class="cards">
                         <!-- Angkatan -->
                         @foreach($alumnibmw as $bmw) 
-                        <button class="card" data-target="detail-{{ $bmw->angkatan }}">Angkatan {{ $bmw->angkatan }}</button>
-                        <div id="detail-{{ $bmw->angkatan }}" class="detail" style="display: none;">
-                            <h3>Detail Angkatan {{ $bmw->angkatan }}</h3>
-                            <ul>
-                                <li>Bekerja: {{ $bmw->bekerja }} siswa</li>
-                                <li>Melanjutkan pendidikan: {{ $bmw->melanjutkan }} siswa</li>
-                                <li>Wirausaha: {{ $bmw->wirausaha }} siswa</li>
-                                <li>Total Siswa BMW: {{ $bmw->total }} siswa</li>
+                        <button class="card" data-target="detail-{{ $bmw->angkatan }}"><i class="fas fa-users"></i> Angkatan {{ $bmw->angkatan }}</button>
+                        <div id="detail-{{ $bmw->angkatan }}" class="detail" style="display: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 500px; margin: 20px auto;">
+                            <h3 style="font-size: 1.3rem; color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-bottom: 15px;">
+                                <i class="fas fa-info-circle" style="color: #007bff; margin-right: 10px;"></i>Detail Angkatan {{ $bmw->angkatan }}
+                            </h3>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li style="display: flex; align-items: center; margin-bottom: 10px; font-size: 1.1rem;">
+                                    <i class="fas fa-briefcase" style="color: #007bff; margin-right: 10px;"></i>
+                                    Bekerja: <span style="font-weight: bold; font-style:italic;">{{ $bmw->bekerja }} siswa</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 10px; font-size: 1.1rem;">
+                                    <i class="fas fa-graduation-cap" style="color: #007bff; margin-right: 10px;"></i>
+                                    Melanjutkan pendidikan: <span style="font-weight: bold; font-style:italic;">{{ $bmw->melanjutkan }} siswa</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 10px; font-size: 1.1rem;">
+                                    <i class="fas fa-laptop-code" style="color: #007bff; margin-right: 10px;"></i>
+                                    Wirausaha: <span style="font-weight: bold; font-style:italic;">{{ $bmw->wirausaha }} siswa</span>
+                                </li>
+                                <li style="display: flex; align-items: center; font-size: 1.1rem;">
+                                    <i class="fas fa-users" style="color: #007bff; margin-right: 10px;"></i>
+                                    Total Siswa BMW:<span style="font-weight: bold; font-style:italic;">{{ $bmw->total }} siswa</span> 
+                                </li>
                             </ul>
-                        </div>
+                        </div>                                               
                         @endforeach
                     </div>
                 </div>

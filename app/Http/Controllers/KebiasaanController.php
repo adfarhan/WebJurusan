@@ -43,9 +43,9 @@ class KebiasaanController extends Controller
     //     return view('projek.show', compact('projek'));
     // }
 
-    public function edit(Projek $kebiasaan)
+    public function edit(Kebiasaan $kebiasaan)
     {
-        return view('backend.admin.projekSiswa.edit', compact('kebiasaan'));
+        return view('backend.admin.kebiasaan.edit', compact('kebiasaan'));
     }
 
     public function update(Request $request, Kebiasaan $kebiasaan)
@@ -69,7 +69,7 @@ class KebiasaanController extends Controller
         return redirect()->route('kegiatanAdmin')->with('success', 'Data berhasil diperbarui!');
     }
 
-    public function destroy(Projek $kebiasaan)
+    public function destroy(Kebiasaan $kebiasaan)
     {
         if ($kebiasaan->gambar) {
             Storage::delete('public/' . $kebiasaan->gambar);

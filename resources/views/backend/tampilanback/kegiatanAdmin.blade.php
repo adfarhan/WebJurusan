@@ -58,80 +58,75 @@
                     <p class="text-muted">Berikut adalah daftar Projek terkini yang tersedia.</p>
                     <div class="underline mx-auto"></div>
                 </div>
-
-                <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
-                    <div>
-                        <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
-                            <p class="text-dark fw-bold">Data-Data Projek  <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
-                        </div>
+            
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
+                        <h5 class="mb-0">Data Projek <span class="text-warning">RPL</span></h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                            <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
-                                <!-- Header -->
-                                <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58; text-align: center;">
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Judul Projek</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Deskripsi</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Poto</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
+                        <div class="table-responsive rounded-3 shadow-sm">
+                            <table class="table table-hover align-middle text-center">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Judul Projek</th>
+                                        <th>Deskripsi</th>
+                                        <th>Foto</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <!-- Body -->
-                                @if ($projek->isEmpty())
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="6" class="text-center" style="font-size: 13px; padding: 12px; color: #5f5f58;">Belum ada data Projek tersedia.</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                @foreach($projek as $tugas)
-                                    <tbody style="background-color: #fff; color: #000;">
-                                        <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e;">
-                                            <td style="padding: 12px;">{{ $loop->iteration }}.</td>
-                                            <td style="padding: 12px; font-size: 13px;">{{ $tugas->judul_projek }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $tugas->deskripsi }}</td>
-                                            <td style="padding: 12px;">
-                                                <div style="width: 100px; height: 75px; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ccc;">
-                                                    <img src="{{ asset('storage/' . $tugas->gambar) }}" 
-                                                            alt="{{ $tugas->nama_siswa }}" 
-                                                            style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                <tbody>
+                                    @forelse($projek as $key => $tugas)
+                                    <tr class="bg-light">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $tugas->judul_projek }}</td>
+                                        <td>{{ $tugas->deskripsi }}</td>
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal1{{ $tugas->id }}">
+                                                <img src="{{ asset('storage/' . $tugas->gambar) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
+                                            </a>
+                                            <div class="modal fade" id="imageModal1{{ $tugas->id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ $tugas->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="imageModalLabel{{ $tugas->id }}">Foto Projek</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <img src="{{ asset('storage/' . $tugas->gambar) }}"  class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td style="padding: 12px;">
-                                                <div class="d-flex gap-2">
-                                                    <!-- Tombol Edit -->
-                                                    <a href="{{ route('projek.edit', $tugas->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
-                                                    
-                                                    <!-- Tombol Delete -->
-                                                    <form id="delete-form-{{ $tugas->id }}" action="{{ route('projek.destroy', $tugas->id) }}" method="POST" style="margin: 0;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $tugas->id }})">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    
-                                @endforeach
-                                @endif
-                                
-                                <!-- Footer -->
-                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
-                                    <tr>
-                                        <td colspan="6" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data Projek Siswa <span style="color: #fde616;">RPL</span></td>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{{ route('projek.edit', $tugas->id) }}" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('projek.destroy', $tugas->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $tugas->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </tfoot>
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">Belum ada data projek tersedia.</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
-                        <a href="{{ route('projek.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
-                            Tambah Data</a>
+                    <div class="card-footer bg-light text-center rounded-bottom-4">
+                        <a href="{{ route('projek.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> Tambah Data
+                        </a>
                     </div>
                 </div>
             </section>
@@ -142,166 +137,159 @@
                     <p class="text-muted">Berikut adalah daftar Prestasi terkini yang tersedia.</p>
                     <div class="underline mx-auto"></div>
                 </div>
-
-                <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
-                    <div>
-                        <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
-                            <p class="text-dark fw-bold">Data-Data Prestasi  <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
-                        </div>
+            
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
+                        <h5 class="mb-0">Data Prestasi <span class="text-warning">RPL</span></h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                            <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
-                                <!-- Header -->
-                                <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58; text-align: center;">
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Nama</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Kelas</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Poto Siswa</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Tanggal</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Deskripsi</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
+                        <div class="table-responsive rounded-3 shadow-sm">
+                            <table class="table table-hover align-middle text-center">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Kelas</th>
+                                        <th>Foto Prestasi</th>
+                                        <th>Tanggal</th>
+                                        <th>Deskripsi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <!-- Body -->
-                                @if ($prestasis->isEmpty())
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="6" class="text-center" style="font-size: 13px; padding: 12px; color: #5f5f58;">Belum ada data Prestasi tersedia.</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                @foreach($prestasis as $pres)
-                                    <tbody style="background-color: #fff; color: #000;">
-                                        <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e;">
-                                            <td style="padding: 12px;">{{ $loop->iteration }}.</td>
-                                            <td style="padding: 12px; font-size: 13px;">{{ $pres->nama_siswa }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $pres->kelas }}</td>
-                                            <td style="padding: 12px;">
-                                                <div style="width: 100px; height: 75px; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ccc;">
-                                                    <img src="{{ asset('storage/' . $pres->gambar) }}" 
-                                                            alt="{{ $pres->nama_siswa }}" 
-                                                            style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                <tbody>
+                                    @forelse($prestasis as $key => $pres)
+                                    <tr class="bg-light">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pres->nama_siswa }}</td>
+                                        <td>{{ $pres->kelas }}</td>
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal2{{ $pres->id }}">
+                                                <img src="{{ asset('storage/' . $pres->gambar) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
+                                            </a>
+                                            <div class="modal fade" id="imageModal2{{ $pres->id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ $pres->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="imageModalLabel{{ $pres->id }}">Foto Prestasi</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <img src="{{ asset('storage/' . $pres->gambar) }}"  class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $pres->tanggal }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $pres->deskripsi }}</td>
-                                            <td style="padding: 12px;">
-                                                <div class="d-flex gap-2">
-                                                    <!-- Tombol Edit -->
-                                                    <a href="{{ route('prestasi.edit', $pres->id) }}" class="btn btn-warning btn-sm"  style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
-                                                    
-                                                    <!-- Tombol Delete -->
-                                                    <form id="delete-form-{{ $pres->id }}" action="{{ route('prestasi.destroy', $pres->id) }}" method="POST" style="margin: 0;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $pres->id }})">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    
-                                @endforeach
-                                @endif
-                                
-                                <!-- Footer -->
-                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
-                                    <tr>
-                                        <td colspan="6" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data Prestasi Siswa <span style="color: #fde616;">RPL</span></td>
+                                            </div>
+                                        </td>
+                                        <td>{{ $pres->tanggal }}</td>
+                                        <td>{{ $pres->deskripsi }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{{ route('prestasi.edit', $pres->id) }}" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('prestasi.destroy', $pres->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $pres->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </tfoot>
+                                    @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">Belum ada data prestasi tersedia.</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
-                        <a href="{{ route('prestasi.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
-                            Tambah Data</a>
+                    <div class="card-footer bg-light text-center rounded-bottom-4">
+                        <a href="{{ route('prestasi.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> Tambah Data
+                        </a>
                     </div>
                 </div>
             </section>
+            
 
-            <section class="projek-admin" id="projek-admin">
+            <section class="kebiasaan-admin" id="kebiasaan-admin">
                 <div class="container text-center py-4">
                     <h2 class="fw-bold">Data Kebiasaan</h2>
-                    <p class="text-muted">Berikut adalah daftar Kebiasaan.</p>
+                    <p class="text-muted">Berikut adalah daftar Kebiasaan terkini yang tersedia.</p>
                     <div class="underline mx-auto"></div>
                 </div>
-
-                <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
-                    <div>
-                        <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
-                            <p class="text-dark fw-bold">Data-Data Kebiasaan  <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
-                        </div>
+            
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
+                        <h5 class="mb-0">Data Kebiasaan <span class="text-warning">RPL</span></h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                            <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
-                                <!-- Header -->
-                                <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58;">
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Judul Kebiasaan</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Deskripsi</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Poto</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
+                        <div class="table-responsive rounded-3 shadow-sm">
+                            <table class="table table-hover align-middle text-center">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Judul Kebiasaan</th>
+                                        <th>Deskripsi</th>
+                                        <th>Foto</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <!-- Body -->
-                                @if ($kebiasaan->isEmpty())
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="6" class="text-center" style="font-size: 13px; padding: 12px; color: #5f5f58;">Belum ada data Projek tersedia.</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                @foreach($kebiasaan as $biasa)
-                                    <tbody style="background-color: #fff; color: #000;">
-                                        <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e;">
-                                            <td style="padding: 12px;">{{ $loop->iteration }}.</td>
-                                            <td style="padding: 12px; font-size: 13px;">{{ $biasa->judul }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $biasa->deskripsi }}</td>
-                                            <td style="padding: 12px;">
-                                                <div style="width: 100px; height: 75px; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ccc;">
-                                                    <img src="{{ asset('storage/' . $biasa->gambar) }}" 
-                                                            alt="{{ $biasa->nama_siswa }}" 
-                                                            style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                <tbody>
+                                    @forelse($kebiasaan as $key => $biasa)
+                                    <tr class="bg-light">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $biasa->judul }}</td>
+                                        <td>{{ $biasa->deskripsi }}</td>
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal3{{ $biasa->id }}">
+                                                <img src="{{ asset('storage/' . $biasa->gambar) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
+                                            </a>
+                                            <div class="modal fade" id="imageModal3{{ $biasa->id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ $biasa->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="imageModalLabel{{ $biasa->id }}">Foto Kebiasaan</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <img src="{{ asset('storage/' . $biasa->gambar) }}"  class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td style="padding: 12px;">
-                                                <div class="d-flex gap-2">
-                                                    <!-- Tombol Edit -->
-                                                    <a href="{{ route('projek.edit', $biasa->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
-                                                    
-                                                    <!-- Tombol Delete -->
-                                                    <form action="{{ route('projek.destroy', $biasa->id) }}" method="POST" style="margin: 0;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;"><i class="fas fa-trash"></i></button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    
-                                @endforeach
-                                @endif
-                                
-                                <!-- Footer -->
-                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
-                                    <tr>
-                                        <td colspan="6" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data Kebiasaan <span style="color: #fde616;">RPL</span></td>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{{ route('kebiasaan.edit', $biasa->id) }}" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('kebiasaan.destroy', $biasa->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $biasa->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </tfoot>
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">Belum ada data kebiasaan tersedia.</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
-                        <a href="{{ route('kebiasaan.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
-                            Tambah Data</a>
+                    <div class="card-footer bg-light text-center rounded-bottom-4">
+                        <a href="{{ route('kebiasaan.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> Tambah Data
+                        </a>
                     </div>
                 </div>
             </section>

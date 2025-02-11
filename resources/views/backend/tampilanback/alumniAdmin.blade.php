@@ -52,90 +52,85 @@
                 }
             </style>
 
-            
-            <section class="bmw-admin" id="bmw-admin">
+            <section class="profile-admin" id="profile-admin">
                 <div class="container text-center py-4">
-                    <h2 class="fw-bold">Data Profile Alumni </h2>
+                    <h2 class="fw-bold">Data Profile Alumni</h2>
                     <p class="text-muted">Berikut adalah daftar Profile Alumni yang tersedia.</p>
                     <div class="underline mx-auto"></div>
                 </div>
 
-                <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
-                    <div>
-                        <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
-                            <p class="text-dark fw-bold">Data-Data Profile Alumni <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
-                        </div>
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
+                        <h5 class="mb-0">Data Profile Alumni <span class="text-warning">RPL</span></h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                            <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
-                                <!-- Header -->
-                                <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58; text-align:center;">
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Nama</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Angkatan</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Pekerjaan</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Cerita Karir</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Poto</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
+                        <div class="table-responsive rounded-3 shadow-sm">
+                            <table class="table table-hover align-middle text-center">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Angkatan</th>
+                                        <th>Pekerjaan</th>
+                                        <th>Cerita Karir</th>
+                                        <th>Foto</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <!-- Body -->
-                                @if ($profile->isEmpty())
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="7" class="text-center" style="font-size: 13px; padding: 12px; color: #5f5f58;">Belum ada data Profile Alumni tersedia.</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                @foreach($profile as $pro) 
-                                    <tbody style="background-color: #fff; color: #000; text-align:center">
-                                        <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e;">
-                                            <td style="padding: 12px;">{{ $loop->iteration }}.</td>
-                                            <td style="padding: 12px; font-size: 13px;">{{ $pro->nama }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $pro->angkatan }} </td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $pro->pekerjaan }} </td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $pro->cerita_sukses }} </td>
-                                            <td style="padding: 12px; font-size: 12px;">
-                                                <div style="width: 100px; height: 75px; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ccc;">
-                                                    <!-- Menampilkan Gambar -->
-                                                    <img src="{{ asset('storage/' . $pro->foto) }}" alt="{{ $pro->nama }}" style="width: 100px; height: auto;">
+                                <tbody>
+                                    @forelse($profile as $key => $pro)
+                                    <tr class="bg-light">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pro->nama }}</td>
+                                        <td>{{ $pro->angkatan }}</td>
+                                        <td>{{ $pro->pekerjaan }}</td>
+                                        <td>{{ $pro->cerita_sukses }}</td>
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal1{{ $pro->id }}">
+                                                <img src="{{ asset('storage/' . $pro->foto) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
+                                            </a>
+                                            <div class="modal fade" id="imageModal1{{ $pro->id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ $pro->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="imageModalLabel{{ $pro->id }}">Foto Frofil</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <img src="{{ asset('storage/' . $pro->foto) }}"  class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td style="padding: 12px;">
-                                                <div class="d-flex gap-2">
-                                                    <!-- Tombol Edit -->
-                                                    <a href="{{ route('profil.edit', $pro->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
-                                                    
-                                                    <!-- Tombol Delete -->
-                                                    <form id="delete-form-{{ $pro->id }}" action="{{ route('profil.destroy', $pro->id) }}" method="POST" style="margin: 0;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $pro->id }})">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    
-                                @endforeach
-                                @endif
-                                
-                                <!-- Footer -->
-                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
-                                    <tr>
-                                        <td colspan="7" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data Profile Alumni Siswa <span style="color: #fde616;">RPL</span></td>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{{ route('profil.edit', $pro->id) }}" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('profil.destroy', $pro->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $pro->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </tfoot>
+                                    @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">Belum ada data Profile Alumni tersedia.</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
-                        <a href="{{ route('profil.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
-                            Tambah Data</a>
+                    <div class="card-footer bg-light text-center rounded-bottom-4">
+                        <a href="{{ route('profil.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> Tambah Data
+                        </a>
                     </div>
                 </div>
             </section>
@@ -143,81 +138,61 @@
             <section class="bmw-admin" id="bmw-admin">
                 <div class="container text-center py-4">
                     <h2 class="fw-bold">Data Alumni BMW</h2>
-                    <p class="text-muted">Berikut adalah daftar Alumni yang BMW  yang tersedia.</p>
+                    <p class="text-muted">Berikut adalah daftar Alumni BMW yang tersedia.</p>
                     <div class="underline mx-auto"></div>
                 </div>
-
-                <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
-                    <div>
-                        <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
-                            <p class="text-dark fw-bold">Data-Data Alumni BMW  <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
-                        </div>
+            
+                <div class="card shadow-lg rounded-3 border-secondary">
+                    <div class="card-header text-center bg-dark text-light rounded-top">
+                        <h5 class="fw-bold mb-0">Data Alumni BMW <span class="text-warning">RPL</span></h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                            <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
-                                <!-- Header -->
-                                <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58; text-align:center;">
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Angkatan</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Data Bekerja</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Data Melanjutkan</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Data Wirausaha</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Total Siswa</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
+                        <div class="table-responsive border rounded shadow-sm">
+                            <table class="table table-bordered table-hover text-center">
+                                <thead class="bg-secondary text-light">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Angkatan</th>
+                                        <th>Bekerja</th>
+                                        <th>Melanjutkan Kuliah</th>
+                                        <th>Wirausaha</th>
+                                        <th>Total Siswa</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <!-- Body -->
-                                @if ($alumnibmw->isEmpty())
-                                    <tbody>
+                                <tbody>
+                                    @forelse($alumnibmw as $bmw)
                                         <tr>
-                                            <td colspan="7" class="text-center" style="font-size: 13px; padding: 12px; color: #5f5f58;">Belum ada data Projek tersedia.</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                @foreach($alumnibmw as $bmw) 
-                                    <tbody style="background-color: #fff; color: #000; text-align:center">
-                                        <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e;">
-                                            <td style="padding: 12px;">{{ $loop->iteration }}.</td>
-                                            <td style="padding: 12px; font-size: 13px;">{{ $bmw->angkatan }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $bmw->bekerja }} siswa</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $bmw->melanjutkan }} siswa</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $bmw->wirausaha }} siswa</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $bmw->total }} siswa</td>
-                                            <td style="padding: 12px;">
-                                                <div class="d-flex gap-2">
-                                                    <!-- Tombol Edit -->
-                                                    <a href="{{ route('alumni.edit', $bmw->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
-                                                    
-                                                    <!-- Tombol Delete -->
-                                                    <form id="delete-form-{{ $bmw->id }}" action="{{ route('alumni.destroy', $bmw->id) }}" method="POST" style="margin: 0;">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $bmw->angkatan }}</td>
+                                            <td>{{ $bmw->bekerja }} siswa</td>
+                                            <td>{{ $bmw->melanjutkan }} siswa</td>
+                                            <td>{{ $bmw->wirausaha }} siswa</td>
+                                            <td>{{ $bmw->total }} siswa</td>
+                                            <td>
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <a href="{{ route('alumni.edit', $bmw->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <form id="delete-form-{{ $bmw->id }}" action="{{ route('alumni.destroy', $bmw->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm" style="border: 3px solid #939090; border-radius: 10px;" onclick="confirmDelete({{ $bmw->id }})">
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $bmw->id }})">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </form>
                                                 </div>
                                             </td>
                                         </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-muted">Belum ada data alumni BMW tersedia.</td>
+                                        </tr>
+                                    @endforelse
                                     </tbody>
-                                    
-                                @endforeach
-                                @endif
-                                
-                                <!-- Footer -->
-                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
-                                    <tr>
-                                        <td colspan="7" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data alumni yang BMW Siswa <span style="color: #fde616;">RPL</span></td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
-                        <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
-                            Tambah Data</a>
+                    <div class="card-footer bg-white text-center">
+                        <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-sm fw-bold"><i class="bi bi-plus"></i> Tambah Data</a>
                     </div>
                 </div>
             </section>

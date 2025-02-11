@@ -419,13 +419,34 @@ body {
 .company-logo {
     width: 100px;
     height: auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
 }
 
-/* Efek Hover pada logo */
-.company-logo:hover {
-    transform: scale(1.1); /* Membesarkan logo saat hover */
+.logo-container {
+    position: relative;
+    display: inline-block;
 }
+.logo-overlay {
+    position: absolute;
+    bottom: 0;
+    font-size: 8px;
+    font-weight: bold;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.logo-container:hover .logo-overlay {
+    opacity: 1;
+}
+/* Efek Hover pada logo */
+/* .company-logo:hover {
+    transform: scale(1.1); 
+} */
 
 /* Mengatur lebar dan jarak antar kolom */
 .perusahaan-kerjasama .row {
@@ -436,6 +457,8 @@ body {
 .perusahaan-kerjasama .col {
     margin-bottom: 30px; /* Menambahkan jarak bawah antar logo */
 }
+
+
 
 /* Berita Section */
 .berita {
@@ -1639,7 +1662,13 @@ body {
 
 
 /* Tampilan Kegiatan extra*/
-.title {
+/* Style khusus untuk bagian ekstrakurikuler */
+.kegiatan-extra {
+    padding: 40px 0;
+    background-color: #f8f8f8;
+}
+
+.kegiatan-extra .title {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1651,8 +1680,8 @@ body {
     margin: 40px 0 20px;
 }
 
-.title::before,
-.title::after {
+.kegiatan-extra .title::before,
+.kegiatan-extra .title::after {
     content: "";
     display: inline-block;
     width: 60px;
@@ -1662,71 +1691,88 @@ body {
     border-radius: 2px;
 }
 
-.subtitle {
+.kegiatan-extra .subtitle {
     text-align: center;
     color: #555;
     margin-bottom: 40px;
     font-size: 16px;
 }
 
-.card-container {
-    display: flex;
-    flex-direction: row; /* Mengatur card agar sejajar secara horizontal */
-    flex-wrap: wrap; /* Membuat card turun ke baris berikutnya jika tidak cukup ruang */
-    justify-content: center; /* Mengatur card agar sejajar di tengah */
-    gap: 20px; /* Memberikan jarak antar card */
-    margin-bottom: 75px; /* Memberikan margin bawah pada container */
+/* Container untuk menata card */
+.kegiatan-extra .card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom sejajar */
+    gap: 20px; /* Jarak antar card */
+    margin-bottom: 75px;
 }
 
-.card-content {
+/* Style untuk card */
+.kegiatan-extra .card {
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 15px;
     display: flex;
-    flex: 1; /* Mengambil ruang sebanyak mungkin untuk teks */
-    flex-direction: row; /* Menyusun teks dan gambar secara horizontal */
-    gap: 20px; /* Jarak antara gambar dan teks */
+    align-items: center;
+    justify-content: space-between;
 }
 
-.card-content h2 {
-    font-size: 1.8rem;
+/* Menata isi dalam card */
+.kegiatan-extra .card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Style untuk teks di dalam card */
+.kegiatan-extra .card-text {
+    flex: 1;
+    padding-right: 15px;
+}
+
+.kegiatan-extra .card-text h2 {
+    font-size: 1.4rem;
     color: #222;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     position: relative;
 }
 
-.card-content h2::after {
+.kegiatan-extra .card-text h2::after {
     content: "";
     display: block;
-    width: 60px;
+    width: 50px;
     height: 4px;
     background-color: #ffc107;
-    margin-top: 8px;
+    margin-top: 5px;
     border-radius: 2px;
 }
 
-.card-content p {
+.kegiatan-extra .card-text p {
     color: #555;
-    line-height: 1.8;
+    line-height: 1.6;
     font-size: 1rem;
+    text-align: justify;
 }
 
-.card-image {
+/* Style untuk gambar di dalam card */
+.kegiatan-extra .card-image {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.card-image img {
-    max-width: 100px; /* Menentukan ukuran gambar agar tidak terlalu besar */
+.kegiatan-extra .card-image img {
+    max-width: 90px; /* Agar gambar tetap kecil */
     height: auto;
-    border-radius: 12px;
-    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); */
+    border-radius: 8px;
 }
 
-.card:nth-child(odd) {
-    align-self: flex-start;
-}
-
-.card:nth-child(even) {
-    align-self: flex-end;
+/* Responsif: Jika layar kecil (max 768px), buat card menjadi 1 kolom */
+@media (max-width: 768px) {
+    .kegiatan-extra .card-container {
+        grid-template-columns: 1fr; /* Satu kolom di layar kecil */
+    }
 }
 
 
@@ -1842,95 +1888,131 @@ body {
 }
 
 /* prestasi siwa */
-/* Card Container */
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 20px;
     padding: 0 10px;
 }
+.prestasi-siswa {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+}
 
-.title-prestasi {
+/* Judul */
+.prestasi-siswa .title-prestasi {
     font-size: 28px;
     text-align: center;
     color: #000;
     font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.prestasi-siswa p.text-muted {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+/* Container untuk card */
+.prestasi-siswa .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 /* Card Styling */
-.card-prestasi {
+.prestasi-siswa .card-prestasi {
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 400px; /* Lebar lebih kecil agar lebih fleksibel */
+    height: auto; /* Menyesuaikan tinggi card */
+    display: flex;
+    flex-direction: column;
 }
 
-.card-prestasi:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+.prestasi-siswa .card-prestasi:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Card Header */
-.card-prestasi .card-header {
+.prestasi-siswa .card-prestasi .card-header {
     background: #fde616;
     color: #343a40;
-    padding: 15px;
-    text-align: left;
-    font-size: 1rem;
-    font-weight: bold;
+    padding: 10px;
+    font-size: 0.9rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.card-prestasi .student-name {
+.prestasi-siswa .card-prestasi .student-name {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: bold;
 }
 
-.card-prestasi .class-info {
-    font-size: 0.9rem;
+.prestasi-siswa .card-prestasi .class-info {
+    font-size: 0.8rem;
     background: #343a40;
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px 8px;
     border-radius: 8px;
 }
 
 /* Card Image */
-.card-prestasi .card-photo {
-    height: 250px; /* Sesuaikan tinggi */
-    width: 100%; /* Pastikan lebar gambar mengikuti lebar kartu */
-    overflow: hidden;
+.prestasi-siswa .card-prestasi .card-photo {
+    width: 100%;
+    height: 160px; /* Menyesuaikan tinggi area foto */
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #f0f0f0; /* Background jika gambar tidak penuh */
+    overflow: hidden;
 }
 
-.card-prestasi .card-photo img {
-    width: 100%; /* Gambar memenuhi lebar area */
-    height: auto; /* Tinggi otomatis mengikuti proporsi gambar */
-    object-fit: cover; /* Memastikan gambar tetap proporsional */
-    object-position: center; /* Fokus pada tengah gambar */
+.prestasi-siswa .card-prestasi .card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Pastikan gambar selalu mengisi penuh */
+    object-position: center; /* Ambil bagian tengah gambar */
 }
+
 
 /* Card Body */
-.card-prestasi .card-body {
-    padding: 20px;
-    text-align: left;
+.prestasi-siswa .card-prestasi .card-body {
+    padding: 12px;
+    font-size: 0.9rem;
 }
 
-.card-prestasi .prestasi-date {
+.prestasi-siswa .card-prestasi .prestasi-date {
     font-size: 0.9rem;
     color: #888;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
-.card-prestasi .prestasi-desc {
+.prestasi-siswa .card-prestasi .prestasi-desc {
     font-size: 1rem;
-    line-height: 1.6;
+    margin-top: 12px;
+    line-height: 1.4;
     color: #555;
 }
+
+/* Responsif: Saat layar kecil, atur ke 1 kolom */
+@media (max-width: 768px) {
+    .prestasi-siswa .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
 
 /* Alumni */
 /* Profil Alumni Section */
@@ -2017,26 +2099,61 @@ body {
 }
 
 
-/* Jejaring Alumni Section */
+/* Container utama untuk jejaring alumni */
+.jejaring-alumni {
+    margin-bottom: 50px;
+}
 
+/* Judul */
 .jejaring-alumni h2 {
     text-align: center;
-    color: #000;
+    color: #323232;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
+
+/* Subtitle */
+.jejaring-alumni p {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+    color: #666;
+}
+
+/* Grid untuk tombol angkatan */
 .jejaring-alumni .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
+
+/* Tombol angkatan */
 .jejaring-alumni .card {
-    background-color: #ffffff;
+    flex: 0 1 250px; /* Lebar tetap */
+    height: 100px; /* Tinggi tetap agar tidak ikut memanjang */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: #fff;
     border-radius: 10px;
-    padding: 20px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, background-color 0.3s;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
+
+.jejaring-alumni .card i {
+    margin-right: 10px;
+    font-size: 1.4rem;
+    color: #007bff;
+}
+
 .jejaring-alumni .card:hover {
     transform: scale(1.05);
     background-color: #fde616;
@@ -2044,50 +2161,55 @@ body {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Detail Display with Animation */
-.detail {
+/* Detail Angkatan */
+.jejaring-alumni .detail {
     display: none;
-    background: #fde616;
+    background: #f9f9f9;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-    transition: max-height 0.5s ease, opacity 0.5s ease;
-}
-.detail.show {
-    display: block;
-}
-input[type="radio"] {
-    display: none;
-}
-input[type="radio"]:checked + .card + .detail {
-    display: block;
-    opacity: 1;
-    max-height: 500px; /* Adjust height based on content */
-}
-.detail h3 {
-    color: #000;
-    margin: 10px 0;
-    font-size: 16px;
-    font-weight: 600;
-    font-style: italic;
-    animation: fadeIn 0.5s ease-in-out;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-.detail ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-.detail ul li {
-    margin: 5px 0;
-    font-weight: bold;
-    font-size: 14px;
-    color: #333;
-    animation: slideIn 0.5s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin-top: 20px;
+    transition: opacity 0.5s ease;
 }
 
-/* Keyframes for Animations */
+.jejaring-alumni .detail.show {
+    display: block;
+}
+
+/* Detail Heading */
+.jejaring-alumni .detail h3 {
+    font-size: 1.3rem;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Detail List */
+.jejaring-alumni .detail ul {
+    list-style: none;
+    padding: 0;
+}
+
+.jejaring-alumni .detail ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.jejaring-alumni .detail ul li i {
+    color: #007bff;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    min-width: 24px;
+}
+
+/* Animasi untuk tampilan detail */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -2099,16 +2221,11 @@ input[type="radio"]:checked + .card + .detail {
     }
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.jejaring-alumni .detail h3,
+.jejaring-alumni .detail ul li {
+    animation: fadeIn 0.5s ease-in-out;
 }
+
 
 /* Responsive */
 /* @media (max-width: 768px) {
@@ -2551,6 +2668,25 @@ input[type="radio"]:checked + .card + .detail {
     }
 }
 
+@media (max-width: 576px) {
+    .company-logo {
+        width: 80px;
+    }
+    .logo-overlay {
+        font-size: 12px;
+        padding: 3px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .company-logo {
+        width: 90px;
+    }
+    .logo-overlay {
+        font-size: 13px;
+    }
+}
+
 /* Responsivitas tentang */
 @media (max-width: 1200px) {
     .gambar {
@@ -2639,6 +2775,9 @@ input[type="radio"]:checked + .card + .detail {
     #tentang-rpl {
         padding-top: 60px;
         margin-top: -60px;
+    }
+    .prospek div:hover{
+        transform: none;
     }
 }
 

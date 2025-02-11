@@ -133,13 +133,13 @@ class TestimoniController extends Controller
                 // Hapus data testimoni
                 $testimoni->delete(); 
 
-                return redirect()->route('berandaAdmin')->with('success', 'Testimoni ditolak, gambar dihapus, dan data berhasil dihapus.');
+                return redirect()->back()->with('success', 'Testimoni ditolak, gambar dihapus, dan data berhasil dihapus.');
             }
     
         // Jika statusnya "diterima", perbarui status
         $testimoni->update(['status' => $status]);
     
-        return redirect()->route('berandaAdmin')->with('success', 'Status testimoni berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Status testimoni berhasil diperbarui.');
     }
     
 

@@ -215,7 +215,7 @@
         
 
 
-        <section class="perusahaan-kerjasama py-5">
+        {{-- <section class="perusahaan-kerjasama py-5">
             <div class="container">
                 <!-- Judul Section -->
                 <div class="mb-5">
@@ -255,7 +255,96 @@
                     </div>
                 </div>
             </div>
+        </section> --}}
+
+
+        <section class="perusahaan-kerjasama py-5">
+            <div class="container">
+                <!-- Judul Section -->
+                <div class="mb-5">
+                    <h2 class="fw-bold fs-3 text-center">Rekan Perusahaan Jurusan <span style="color: #fde616; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);">RPL</span></h2>
+                    <p class="text-muted text-start">
+                        Kami bangga dapat menjalin kerja sama dengan berbagai perusahaan ternama untuk memberikan peluang terbaik bagi siswa jurusan Rekayasa Perangkat Lunak (RPL) kami.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slider Logo Perusahaan -->
+            <div class="container">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <!-- Ulangi untuk setiap logo -->
+                        <div class="swiper-slide text-center">
+                            <div class="logo-container">
+                                <img src="assets/img/logo.png" alt="Perusahaan 1" class="img-fluid company-logo">
+                                <div class="logo-overlay">Perusahaan 1</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide text-center">
+                            <div class="logo-container">
+                                <img src="assets/img/card.jpg" alt="Perusahaan 2" class="img-fluid company-logo">
+                                <div class="logo-overlay">Perusahaan 2</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide text-center">
+                            <div class="logo-container">
+                                <img src="assets/img/gambar1.jpg" alt="Perusahaan 3" class="img-fluid company-logo">
+                                <div class="logo-overlay">Perusahaan 3</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide text-center">
+                            <div class="logo-container">
+                                <img src="assets/img/gedungrpl.jpg" alt="Perusahaan 4" class="img-fluid company-logo">
+                                <div class="logo-overlay">Perusahaan 4</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide text-center">
+                            <div class="logo-container">
+                                <img src="assets/img/logo.png" alt="Perusahaan 5" class="img-fluid company-logo">
+                                <div class="logo-overlay">SMKN 1 KAWALI</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide text-center">
+                            <div class="logo-container">
+                                <img src="assets/img/logo.png" alt="Perusahaan 6" class="img-fluid company-logo">
+                                <div class="logo-overlay">Perusahaan 4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigasi Swiper -->
+                    {{-- <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div> --}}
+                </div>
+            </div>
         </section>
+
+        <!-- Tambahkan Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: { slidesPerView: 3 },
+                    1024: { slidesPerView: 4 }
+                }
+            });
+        </script>
+
         
         
         
@@ -349,9 +438,9 @@
                     @endforeach
                     <div class="d-flex justify-content-center mt-4">
                         <div class="pagination-container">
-                            {{ $berita->links('pagination::bootstrap-4') }}
+                            {{ $berita->appends(['berita_page' => request('berita_page')])->fragment('berita')->links('pagination::bootstrap-4') }}
                         </div>
-                    </div>
+                    </div>                    
                     <style>
                         .pagination-container {
                             margin-top: 20px;
@@ -383,7 +472,7 @@
         
         
         
-        <section class="testimoni py-5">
+        <section class="testimoni py-5" id="testimoni">
             <div class="container">
                 <!-- Judul Section -->
                 <div class="text-center mb-5">
@@ -413,9 +502,9 @@
                     @endforeach
                     <div class="d-flex justify-content-center mt-4">
                         <div class="pagination-container">
-                            {{ $testimonis->links('pagination::bootstrap-4') }}
+                            {{ $testimonis->appends(['testimoni_page' => request('testimoni_page')])->fragment('testimoni')->links('pagination::bootstrap-4') }}
                         </div>
-                    </div>
+                    </div>                    
                     <style>
                         .pagination-container {
                             margin-top: 20px;

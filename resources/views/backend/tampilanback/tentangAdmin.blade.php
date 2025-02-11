@@ -55,51 +55,51 @@
             <section class="staf-pengajar" id="staf-pengajar">
                 <div class="container text-center py-4">
                     <h2 class="fw-bold">Data Staf Pengajar</h2>
-                    <p class="text-muted">Berikut adalah daftar Staf Pengajar terkini yang tersedia.</p>
+                    <p class="text-muted">Berikut adalah daftar staf pengajar terkini yang tersedia.</p>
                     <div class="underline mx-auto"></div>
                 </div>
-
-                <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
-                    <div>
-                        <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
-                            <p class="text-dark fw-bold">Data-Data Staf Pengajar  <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
-                        </div>
+            
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
+                        <h5 class="mb-0">Data Staf Pengajar <span class="text-warning">RPL</span></h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                            <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
-                                <!-- Header -->
-                                <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                    <tr style="border-bottom: 2px solid #5f5f58; text-align:center;">
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Nama</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Jabatan</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Bidang</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Foto</th>
-                                        <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
+                        <div class="table-responsive rounded-3 shadow-sm">
+                            <table class="table table-hover align-middle text-center">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Jabatan</th>
+                                        <th>Bidang</th>
+                                        <th>Foto</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <!-- Body -->
-                                @if ($pengajars->isEmpty())
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="6" class="text-center" style="font-size: 13px; padding: 12px; color: #5f5f58;">Belum ada data Staf Pengajar tersedia.</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                @foreach($pengajars as $guru)
-                                    <tbody style="background-color: #fff; color: #000;">
-                                        <tr style="transition: all 0.3s ease; border-bottom: 1px solid #2f2e2e; text-align:center;">
-                                            <td style="padding: 12px;">{{ $loop->iteration }}.</td>
-                                            <td style="padding: 12px; font-size: 13px;">{{ $guru->nama }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $guru->jabatan }}</td>
-                                            <td style="padding: 12px; font-size: 12px;">{{ $guru->bidang }}</td>
-                                            <td style="padding: 12px;">
-                                                <div style="width: 100px; height: 75px; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ccc;">
-                                                    <img src="{{ asset('storage/' . $guru->foto) }}" 
-                                                            alt="{{ $guru->nama }}" 
-                                                            style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                <tbody>
+                                    @forelse($pengajars as $key => $guru)
+                                    <tr class="bg-light">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $guru->nama }}</td>
+                                        <td>{{ $guru->jabatan }}</td>
+                                        <td>{{ $guru->bidang }}</td>
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal1{{ $guru->id }}">
+                                                <img src="{{ asset('storage/' . $guru->foto) }}" class="img-thumbnail" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+                                            </a>
+                                            <div class="modal fade" id="imageModal1{{ $guru->id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ $guru->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="imageModalLabel{{ $guru->id }}">Foto Staf</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <img src="{{ asset('storage/' . $guru->foto) }}"  class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </td>
                                             <td style="padding: 12px;">
                                                 <div class="d-flex gap-2">
@@ -126,14 +126,37 @@
                                 <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
                                     <tr>
                                         <td colspan="6" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data Staf Pengajar <span style="color: #fde616;">RPL</span></td>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{{ route('pengajars.edit', $guru->id) }}" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('pengajars.destroy', $guru->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $guru->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </tfoot>
+                                    @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted">Belum ada data staf pengajar tersedia.</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
-                        <a href="{{ route('pengajars.create') }}" class="btn btn-primary btn-sm fw-bold" style="border-radius: 10px; border: 2px solid #5f5f58;"><i class="bi bi-plus"></i>
-                            Tambah Data</a>
+                    <div class="card-footer bg-light text-center rounded-bottom-4">
+                        <a href="{{ route('pengajars.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> Tambah Data
+                        </a>
                     </div>
                 </div>
             </section>

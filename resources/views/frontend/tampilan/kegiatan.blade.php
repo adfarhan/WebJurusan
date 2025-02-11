@@ -11,7 +11,7 @@
                     <div class="card-content">
                         <div class="card-text">
                             <h2>Ekstrakurikuler IT</h2>
-                            <p style="text-align: justify;">
+                            <p>
                                 Tingkatkan keahlian Anda dalam teknologi informasi melalui kegiatan yang melibatkan coding, desain web, dan pemrograman.
                             </p>
                         </div>
@@ -25,7 +25,7 @@
                     <div class="card-content">
                         <div class="card-text">
                             <h2>English Club</h2>
-                            <p style="text-align: justify;">
+                            <p>
                                 Perluas kemampuan bahasa Inggris Anda dengan aktivitas seru seperti debat, presentasi, dan diskusi dalam suasana mendukung.
                             </p>
                         </div>
@@ -50,6 +50,8 @@
             </div>
         </div>
     </section>
+    
+    
     
 
 
@@ -104,20 +106,18 @@
                     <span class="class-info">Kelas: {{ $pres->kelas }}</span>
                 </div>
                 <div class="card-photo">
-                    <img src="{{ asset('storage/' . $pres->gambar) }}" 
-                                                            alt="{{ $pres->nama_siswa }}">
+                    <img src="{{ asset('storage/' . $pres->gambar) }}" alt="{{ $pres->nama_siswa }}">
                 </div>
                 <div class="card-body">
                     <p class="prestasi-date">Tanggal: {{ $pres->tanggal }}</p>
-                    <p class="prestasi-desc">{{ $pres->deskripsi }}.</p>
+                    <p class="prestasi-desc">{{ $pres->deskripsi }}</p>
                 </div>
             </div>
             @endforeach
         </div>
         <div class="d-flex justify-content-center mt-4">
             <div class="pagination-container">
-                {{ $prestasis->links('pagination::bootstrap-4') }}
-
+                {{ $prestasis->appends(['berita_page' => request('prestasi_page')])->fragment('prestasi')->links('pagination::bootstrap-4') }}
             </div>
         </div>
         

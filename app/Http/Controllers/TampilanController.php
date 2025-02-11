@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 class TampilanController extends Controller
 {
     public function beranda(){
-        $testimonis = Testimoni::where('status', 'diterima')->paginate(4);
-        $berita = Berita::orderBy('publish_date', 'desc')->paginate(3);
+        $testimonis = Testimoni::where('status', 'diterima')->paginate(4, ['*'], 'testimoni_page');
+        $berita = Berita::orderBy('publish_date', 'desc')->paginate(3, ['*'], 'berita_page');
         return view('frontend.tampilan.beranda', compact('berita', 'testimonis'),[
             'title' => 'Jurusan RPL | Beranda'
         ]);
@@ -40,7 +40,7 @@ class TampilanController extends Controller
     public function kegiatan(){
         $projek = Projek::all();
         $kebiasaan = Kebiasaan::all();
-        $prestasis = Prestasi::paginate(3);
+        $prestasis = Prestasi::paginate(2, ['*'], 'berita_page');
         return view('frontend.tampilan.kegiatan', compact('prestasis', 'projek', 'kebiasaan'),[
             'title' => 'Jurusan RPL | Kegiatan'
         ]);

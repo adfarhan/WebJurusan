@@ -45,109 +45,107 @@
                 }
             </style>
 
-            <div class="card" style="border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); background:#fff; border: 3px solid #5f5f58; ">
-                <div>
-                    <div class="card-header text-center p-3 border-0" style="border-radius: 12px;">
-                        <p class="text-dark fw-bold">Konfirmasi Data Testimoni siswa  <span style="color: #fde616; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">RPL</span></p>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive" style="border-radius: 12px; border: 5px solid #939090; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                        <table class="table table-bordered table-hover table-sm" style="margin: 0; color:">
-                            <thead style="background: #5f5f58 ; color: #000; font-weight: bold;">
-                                <tr style="border-bottom: 2px solid #5f5f58; text-align:center;">
-                                    <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">No</th>
-                                    <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Nama</th>
-                                    <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Angkatan</th>
-                                    <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Testimoni</th>
-                                    <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Poto</th>
-                                    <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Status</th>
-                                    <th style="padding: 14px; text-transform: uppercase; font-size: 14px;">Aksi</th>
-                                </tr>
-                            </thead>
+        <div class="card shadow-lg rounded-4 border-0">
+            <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
+                <h5 class="mb-0">Konfirmasi Data Testimoni Siswa <span class="text-warning">RPL</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive rounded-3 shadow-sm">
+                    <table class="table table-hover align-middle text-center">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Angkatan</th>
+                                <th>Testimoni</th>
+                                <th>Foto</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody style="background-color: #fff; color: #000;">
                             @if ($pendingTestimoni->isEmpty())
-                            <tbody>
                                 <tr>
-                                    <td colspan="6" class="text-center" style="padding: 12px; color: #5f5f58; font-size: 13px;">Belum ada data Testimoni siswa yang harus dikonfirmasi.</td>
+                                    <td colspan="7" class="text-center text-muted">Belum ada data Testimoni yang harus dikonfirmasi.</td>
                                 </tr>
-                            </tbody>
                             @else
-                            @foreach ($pendingTestimoni as $key => $testimoni)
-                            <tbody style="background-color: #f8f9fa; text-align: center;">
-                                <tr>
-                                    <td style="padding: 12px;">{{ $pendingTestimoni->firstItem() + $key }}.</td>
-                                    <td style="padding: 12px; ">{{ $testimoni->nama }}</td>
-                                    <td style="padding: 12px; ">{{ $testimoni->angkatan }}</td>
-                                    <td style="text-align: justify;">{{ $testimoni->testimoni_alumni }}</td>
-                                    <td style="padding: 12px; ">
-                                        <span class="badge bg-warning text-dark" style="font-size: 14px; padding: 5px 10px; border-radius: 8px;">{{ $testimoni->status }}</span>
-                                    </td>
-                                    <td style="padding: 12px;">
-                                        <img src="{{ asset('storage/' . $testimoni->image_alumni) }}" 
-                                                alt="{{ $testimoni->nama }}" 
-                                                width="100" 
-                                                height="100" 
-                                                style="border-radius: 50%; object-fit: cover;">
-                                    </td>
-                                    <td style="padding: 12px; ">
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <form action="{{ route('testimoni.updateStatus', [$testimoni, 'diterima']) }}" method="POST">
-                                                @csrf
-                                                <button class="btn btn-success btn-sm" style="border-radius: 8px;">
-                                                    <i class="bi bi-check-circle"></i> Terima
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('testimoni.updateStatus', [$testimoni, 'ditolak']) }}" method="POST">
-                                                @csrf
-                                                <button class="btn btn-danger btn-sm" style="border-radius: 8px;">
-                                                    <i class="bi bi-x-circle"></i> Tolak
-                                                </button>
-                                            </form>                                            
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endif
-                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
+                                @foreach ($pendingTestimoni as $key => $testimoni)
                                     <tr>
-                                        <td colspan="7" style="padding: 12px; font-weight: bold; font-size: 12px;">Konfirmasi Data Testimoni siswa <span style="color: #fde616;">RPL</span></td>
+                                        <td>{{ $pendingTestimoni->firstItem() + $key }}</td>
+                                        <td>{{ $testimoni->nama }}</td>
+                                        <td>{{ $testimoni->angkatan }}</td>
+                                        <td class="text-start">{{ $testimoni->testimoni_alumni }}</td>
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ $testimoni->id }}">
+                                                <img src="{{ asset('storage/' . $testimoni->image_alumni) }}" 
+                                                    class="img-thumbnail" 
+                                                    alt="{{ $testimoni->nama }}" 
+                                                    style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+                                            </a>
+                        
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="imageModal{{ $testimoni->id }}" tabindex="-1" 
+                                                aria-labelledby="imageModalLabel{{ $testimoni->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="imageModalLabel{{ $testimoni->id }}">Foto Alumni</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <img src="{{ asset('storage/' . $testimoni->image_alumni) }}"  
+                                                                class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-glass">{{ $testimoni->status }}</span>
+                                        </td>                                                                               
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <form action="{{ route('testimoni.updateStatus', [$testimoni, 'diterima']) }}" method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-success btn-sm" style="border-radius: 8px;">
+                                                        <i class="bi bi-check-circle"></i> Terima
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('testimoni.updateStatus', [$testimoni, 'ditolak']) }}" method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-sm" style="border-radius: 8px;">
+                                                        <i class="bi bi-x-circle"></i> Tolak
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </tfoot>
-                            </tbody>
-                        </table>
-                    </div>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
-                <div class="card-footer border-0" style="border-radius: 12px; background:#fff;">
-                    <div class="d-flex justify-content-center">
-                        <div class="pagination-container">
-                            {{ $pendingTestimoni->links('pagination::bootstrap-4') }}
-                        </div>
-                    </div>
-                    <style>
-                        .pagination-container {
-                            margin-top: 20px;
-                            margin-bottom: 20px;
-                        }
-                        .pagination {
-                            justify-content: center;
-                        }
-                        .pagination .page-item .page-link {
-                            color: #000;
-                            border-radius: 5px;
-                            margin: 0 5px;
-                        }
-                        .pagination .page-item.active .page-link {
-                            background-color: #fde616;
-                            color: white;
-                            border-color: #fde616;
-                        }
-                        .pagination .page-item .page-link:hover {
-                            background-color: #e5d00e;
-                            color: white;
-                        }
-                    </style>
+            </div>
+            <div class="card-footer border-0 text-center" style="border-radius: 12px; background:#fff;">
+                <div class="pagination-container">
+                    {{ $pendingTestimoni->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
+
+        </div>
     </div>
+    <style>
+    .badge-glass {
+        background: #f9e428; /* Warna dengan transparansi */
+        color: #000;
+        font-weight: bold;
+        padding: 8px 14px;
+        border-radius: 12px;
+        text-transform: uppercase;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 193, 7, 0.6);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    </style>
 </x-layBack>

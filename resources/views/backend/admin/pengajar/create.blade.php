@@ -1,91 +1,95 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tambah Staf Pengajar</title>
     <link rel="icon" href="{{ asset('assets/img/logo.png') }}" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
-            background-color: #f8f9fa;
+            background: #f9f9f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 0;
         }
         .card {
-            border: none;
-            border-radius: 12px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background: #fff;
+            max-width: 600px;
+            width: 100%;
         }
         .card-header {
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-        }
-        .card-header h2{
-            font-size: 25px;
+            background: #ffcc00;
+            color: #fff;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
             text-align: center;
-            font-style: italic;
+            font-size: 24px;
+            font-weight: bold;
         }
-        .btn-success, .btn-secondary {
-            transition: all 0.3s ease;
-        }
-        .btn-success:hover {
-            background-color: #096d16;
-            color: #fff;
-        }
-        .btn-danger:hover {
-            background-color: #bc1919;
-            color: #fff;
-        }
-        small.text-muted {
-            font-size: 0.9rem;
-            color: #6c757d;
+        .btn-success, .btn-danger {
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
         }
         .form-control:focus {
-            border-color: #fde616; /* Warna hijau */
-            box-shadow: 0 0 0 0.25rem rgba(185, 185, 20, 0.25);
+            border-color: #ffcc00;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        .image-preview {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: none;
         }
     </style>
-  </head>
-  <body>
-    <div class="container mb-5 mt-5">
-        <div class="card shadow-lg">
-            <div class="card-header border-0" style="background: #f7e015">
-                <h2 class="mb-0" style="color: #fff ; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);"> Tambah Staf Pengajar</h2>
-            </div>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="card p-4">
+            <div class="card-header">Tambah Staf Pengajar</div>
             <div class="card-body">
                 <form action="{{ route('pengajars.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <!-- Judul -->
-                    <div class="mb-4">
+
+                    <!-- Nama -->
+                    <div class="mb-3">
                         <label for="nama" class="form-label fw-bold">Nama Pengajar</label>
-                        <input type="text" name="nama" id="nama" class="form-control" required>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama lengkap" required>
                     </div>
 
-                    <div class="mb-4">
+                    <!-- Divisi -->
+                    <div class="mb-3">
                         <label for="jabatan" class="form-label fw-bold">Divisi</label>
-                        <input type="text" name="jabatan" id="jabatan" class="form-control"  required>
+                        <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Masukkan divisi" required>
                     </div>
 
-                    <div class="mb-4">
+                    <!-- Status -->
+                    <div class="mb-3">
                         <label for="bidang" class="form-label fw-bold">Status</label>
-                        <input type="text" name="bidang" id="bidang" class="form-control"  required>
+                        <input type="text" name="bidang" id="bidang" class="form-control" placeholder="Masukkan status" required>
                     </div>
 
-                    <!-- Gambar -->
-                    <div class="mb-4">
+                    <!-- Foto -->
+                    <div class="mb-3">
                         <label for="foto" class="form-label fw-bold">Foto Formal</label>
                         <input type="file" name="foto" id="foto" class="form-control" onchange="previewImage(event)">
-                        <small class="text-muted">Unggah gambar dalam format .jpg, .png, atau .jpeg.</small>
-                        <p><img id="image-preview" src="#" alt="Preview Gambar" class="mt-3 d-none" style="max-width: 20%; height: auto; border-radius: 8px;"></p>
+                        <small class="text-muted">Unggah foto dengan format .jpg, .jpeg, atau .png</small>
+                        <img id="image-preview" class="image-preview mt-3" src="#" alt="Preview Gambar">
                     </div>
-
 
                     <!-- Tombol Aksi -->
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('tentangAdmin') }}" class="btn btn-danger">
+                        <a href="{{ route('tentangAdmin') }}" class="btn btn-danger px-4">
                             <i class="bi bi-arrow-left"></i> Batal
                         </a>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success px-4">
                             <i class="bi bi-save"></i> Simpan
                         </button>
                     </div>
@@ -94,20 +98,18 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
     <script>
         function previewImage(event) {
             const imagePreview = document.getElementById('image-preview');
             const file = event.target.files[0];
             if (file) {
                 imagePreview.src = URL.createObjectURL(file);
-                imagePreview.classList.remove('d-none');
+                imagePreview.style.display = 'block';
             } else {
                 imagePreview.src = '#';
-                imagePreview.classList.add('d-none');
+                imagePreview.style.display = 'none';
             }
         }
     </script>
-  </body>
+</body>
 </html>
