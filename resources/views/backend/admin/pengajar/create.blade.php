@@ -64,16 +64,17 @@
                         <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama lengkap" required>
                     </div>
 
-                    <!-- Divisi -->
+                    <!-- Jabatan -->
                     <div class="mb-3">
-                        <label for="jabatan" class="form-label fw-bold">Divisi</label>
-                        <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Masukkan divisi" required>
+                        <label for="jabatan" class="form-label fw-bold">Jabatan</label>
+                        <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Masukkan jabatan" required>
                     </div>
 
-                    <!-- Status -->
+                    <!-- Bidang -->
                     <div class="mb-3">
-                        <label for="bidang" class="form-label fw-bold">Status</label>
-                        <input type="text" name="bidang" id="bidang" class="form-control" placeholder="Masukkan status" required>
+                        <label for="bidang" class="form-label fw-bold">Bidang</label>
+                        <input type="text" name="bidang" id="bidang" class="form-control" placeholder="Masukkan bidang" required>
+
                     </div>
 
                     <!-- Foto -->

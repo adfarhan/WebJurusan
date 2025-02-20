@@ -115,16 +115,21 @@
             </div>
             @endforeach
         </div>
-        <div class="d-flex justify-content-center mt-4">
+        <div class="d-flex flex-column align-items-center mt-4">
+            <div class="pagination-info mb-2">
+                Menampilkan {{ $prestasis->firstItem() }} sampai {{ $prestasis->lastItem() }} dari {{ $prestasis->total() }} hasil
+            </div>
             <div class="pagination-container">
                 {{ $prestasis->appends(['berita_page' => request('prestasi_page')])->fragment('prestasi')->links('pagination::bootstrap-4') }}
             </div>
         </div>
-        
-
         <style>
+            .pagination-info {
+                font-size: 14px;
+                color: #555;
+            }
             .pagination-container {
-                margin-top: 20px;
+                margin-top: 10px;
                 margin-bottom: 20px;
             }
             .pagination {
@@ -134,18 +139,19 @@
                 color: #000;
                 border-radius: 5px;
                 margin: 0 5px;
+                border: 1px solid #ddd;
             }
             .pagination .page-item.active .page-link {
                 background-color: #fde616;
-                color: white;
+                color: #fff;
                 border-color: #fde616;
             }
             .pagination .page-item .page-link:hover {
                 background-color: #e5d00e;
-                color: white;
+                color: #fff;
             }
-        </style>
-       
+    </style>
+        
             <script>
             document.addEventListener("DOMContentLoaded", function() {
                 if (window.location.hash === '#prestasi') {
@@ -167,7 +173,7 @@
                 <img src="{{ asset('storage/' . $biasa->gambar) }}" alt="{{ $biasa->judul }}">
                 <div class="gallery-caption">
                     <h3>{{ $biasa->judul }}</h3>
-                    <p>{{ $biasa->deskripsi }}</p>
+                    <p style="font-size: 12px;">{{ $biasa->deskripsi }}</p>
                 </div>
             </div>
             @endforeach

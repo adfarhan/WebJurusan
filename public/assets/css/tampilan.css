@@ -2006,13 +2006,25 @@ body {
 
 /* Responsif: Saat layar kecil, atur ke 1 kolom */
 @media (max-width: 768px) {
+    .prestasi-siswa {
+        padding: 50px 15px; /* Tambahkan padding agar tidak mepet */
+    }
+
+    .prestasi-siswa .card-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10px; /* Tambahkan padding */
+    }
+
+    .prestasi-siswa .card-prestasi {
+        width: 90%; /* Gunakan persentase agar fleksibel */
+        max-width: 350px; /* Batasi agar tidak terlalu besar */
+    }
     .prestasi-siswa .card-container {
         flex-direction: column;
         align-items: center;
     }
 }
-
-
 
 /* Alumni */
 /* Profil Alumni Section */

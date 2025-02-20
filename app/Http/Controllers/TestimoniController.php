@@ -145,9 +145,9 @@ class TestimoniController extends Controller
 
     public function adminIndex()
     {
-        $pendingTestimoni = Testimoni::where('status', 'pending')->orderBy('created_at', 'desc')->paginate(5);
-        $diterimaTestimoni = Testimoni::where('status', 'diterima')->orderBy('created_at', 'desc')->paginate(5);
-        $ditolakTestimoni = Testimoni::where('status', 'ditolak')->orderBy('created_at', 'desc')->paginate(5);
+        $pendingTestimoni = Testimoni::where('status', 'pending')->orderBy('created_at', 'desc')->paginate(5, ['*'], 'konfirmasi_page');
+        $diterimaTestimoni = Testimoni::where('status', 'diterima')->orderBy('created_at', 'desc')->paginate(5, ['*'], 'konfirmasi_page');
+        $ditolakTestimoni = Testimoni::where('status', 'ditolak')->orderBy('created_at', 'desc')->paginate(5, ['*'], 'konfirmasi_page');
 
         return view('backend.admin.testimoni.konfirmasiData', [
             'pendingTestimoni' => $pendingTestimoni,

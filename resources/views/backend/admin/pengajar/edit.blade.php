@@ -67,13 +67,13 @@
 
                     <!-- Jabatan -->
                     <div class="mb-3">
-                        <label for="jabatan" class="form-label fw-bold">Divisi</label>
+                        <label for="jabatan" class="form-label fw-bold">Jabatan</label>
                         <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ $pengajar->jabatan }}" required>
                     </div>
-
+                    
                     <!-- Bidang -->
                     <div class="mb-3">
-                        <label for="bidang" class="form-label fw-bold">Status</label>
+                        <label for="bidang" class="form-label fw-bold">Divisi</label>
                         <input type="text" name="bidang" id="bidang" class="form-control" value="{{ $pengajar->bidang }}" required>
                     </div>
 

@@ -60,29 +60,37 @@
                 </div>
 
                 <div class="card shadow-lg rounded-4 border-0">
-                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
-                        <h5 class="mb-0">Data Berita <span class="text-warning">RPL</span></h5>
+                    <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Berita <span class="text-warning fw-bold">RPL</span></h5>
+                        <a href="{{ route('berita.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i>
+                        </a>
                     </div>
+                    
                     <div class="card-body">
                         <div class="table-responsive rounded-3 shadow-sm">
-                            <table class="table table-hover align-middle text-center">
+                            <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Judul</th>
-                                        <th>Deskripsi</th>
+                                        <th style="min-width: 300px;">Deskripsi</th>
                                         <th>Tanggal</th>
-                                        <th>Gambar</th>
+                                        <th style="min-width: 100px;">Gambar</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($berita as $beritas)
+                                    @forelse ($berita as $key => $beritas)
                                         <tr class="bg-light">
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $berita->firstItem() + $key }}</td>
                                             <td>{{ $beritas->title }}</td>
-                                            <td class="text-truncate" style="max-width: 150px;">{{ $beritas->content }}</td>
-                                            <td>{{ $beritas->publish_date }}</td>
+                                            <td class="text-start">
+                                                <div class="testimoni-text" style="max-height: 100px; overflow-y: auto; word-break: break-word; font-size: 13px;">
+                                                    {{ $beritas->content }}
+                                                </div>
+                                            </td>
+                                            <td class="text-muted" style="font-size: 14px;">{{ \Carbon\Carbon::parse($beritas->publish_date)->format('d/m/Y') }}</td>
                                             <td>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#imageModalTable1_{{ $beritas->id }}">
                                                     <img src="{{ asset('storage/' . $beritas->image) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
@@ -110,7 +118,8 @@
                                                     <a href="{{ route('berita.edit', $beritas) }}" class="btn btn-sm btn-warning">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('berita.destroy', $beritas->id) }}" method="POST" class="d-inline">
+                                                    <form id="delete-form-{{ $beritas->id }}" action="{{ route('berita.destroy', $beritas->id) }}" method="POST" class="d-inline">
+
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $beritas->id }})">
@@ -149,6 +158,33 @@
             </style>
 
 
+
+            <style>
+                @media (max-width: 768px) {
+                    .table-responsive {
+                        overflow-x: auto;
+                    }
+                    .table td {
+                        font-size: 14px;
+                    }
+                }
+                @media (max-width: 576px) {
+                    .img-alumni {
+                        width: 60px !important;
+                        height: 60px !important;
+                        aspect-ratio: 1 / 1 !important;
+                    }
+                }
+                @media (max-width: 992px) {
+                    .img-alumni {
+                        width: 70px !important;
+                        height: 70px !important;
+                        aspect-ratio: 1 / 1 !important;
+                    }
+                }
+            </style>
+
+
                         
                         
             <section class="alumni-admin" id="alumni-admin">
@@ -159,32 +195,42 @@
                 </div>
 
                 <div class="card shadow-lg rounded-4 border-0">
-                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
-                        <h5 class="mb-0">Data Alumni <span class="text-warning">RPL</span></h5>
+                    <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Alumni <span class="text-warning fw-bold">RPL</span></h5>
+                        <a href="{{ route('testimoni.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> 
+                        </a>
                     </div>
+                    
                     <div class="card-body">
                         <div class="table-responsive rounded-3 shadow-sm">
-                            <table class="table table-hover align-middle text-center">
+                            <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Nama</th>
-                                        <th>Angkatan</th>
-                                        <th>Testimoni</th>
-                                        <th>Foto Alumni</th>
-                                        <th>Aksi</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">No</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Nama</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Angkatan</th>
+                                        <th style="min-width: 300px; vertical-align: middle; white-space: nowrap;">Testimoni</th>
+                                        <th style="min-width: 100px; vertical-align: middle; white-space: nowrap;">Foto Alumni</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($testimonis as $key => $testi)
                                         <tr class="bg-light">
                                             <td>{{ $testimonis->firstItem() + $key }}</td>
-                                            <td>{{ $testi->nama }}</td>
+                                            <td style="font-size: 13px;">{{ $testi->nama }}</td>
                                             <td>{{ $testi->angkatan }}</td>
-                                            <td class="text-truncate" style="max-width: 150px;">{{ Str::limit($testi->testimoni_alumni, 50, '...') }}</td>
+                                            <td class="text-start">
+                                                <div class="testimoni-text" style="max-height: 100px; overflow-y: auto; word-break: break-word; font-size: 13px;">
+                                                    {{ $testi->testimoni_alumni }}
+                                                </div>
+                                            </td>
                                             <td>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#imageModalTable2_{{ $testi->id }}">
-                                                    <img src="{{ asset('storage/' . $testi->image_alumni) }}" class="img-thumbnail" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+                                                    <img src="{{ asset('storage/' . $testi->image_alumni) }}" 
+                                                         class="img-thumbnail rounded-circle img-alumni" 
+                                                         style="width: 80px; height: 80px; object-fit: cover; aspect-ratio: 1 / 1 !important;">
                                                 </a>
                                                 <div class="modal fade" id="imageModalTable2_{{ $testi->id }}" tabindex="-1" aria-labelledby="imageModalLabelTable1_{{ $testi->id }}" aria-hidden="true" data-bs-backdrop="static">
                                                     <div class="modal-dialog modal-dialog-centered">
@@ -198,15 +244,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                             </td>
+                                            
                                             
                                             <td>
                                                 <div class="d-flex justify-content-center gap-2">
                                                     <a href="{{ route('testimoni.edit', $testi->id) }}" class="btn btn-sm btn-warning">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('testimoni.destroy', $testi->id) }}" method="POST" class="d-inline">
+                                                    <form id="delete-form-{{ $testi->id }}" action="{{ route('testimoni.destroy', $testi->id) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $testi->id }})">
@@ -226,13 +273,44 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-                        <a href="{{ route('testimoni.create') }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </a>
-                        <div class="pagination-container mt-3">
-                            {{ $testimonis->links('pagination::bootstrap-4') }}
-                        </div>
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $testimonis->firstItem() }} sampai {{ $testimonis->lastItem() }} dari {{ $testimonis->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{  $testimonis->appends(['testimoni_page' => request('testimoni_page')])->fragment('alumni-admin')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-info {
+                                font-size: 14px;
+                                color: #555;
+                            }
+                            .pagination-container {
+                                margin-top: 10px;
+                                margin-bottom: 20px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                                border: 1px solid #ddd;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: #fff;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: #fff;
+                            }
+                        </style>
                     </div>
+
                 </div>
             </section>
 
@@ -240,7 +318,8 @@
             
         </div>
     </div>
-
+   
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

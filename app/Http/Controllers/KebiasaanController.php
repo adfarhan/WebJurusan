@@ -22,8 +22,8 @@ class KebiasaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'deskripsi' => 'required',
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:255',
             'gambar' => 'nullable|image',
         ]);
 
@@ -35,8 +35,36 @@ class KebiasaanController extends Controller
             'gambar' => $imagePath,
         ]);
 
-        return redirect()->route('kegiatanAdmin')->with('success', 'projek berhasil ditambahkan!');
+        return redirect()->route('kegiatanAdmin')->with('success', 'Projek berhasil ditambahkan!');
+
     }
+
+    // public function show(Projek $kebiasaan)
+    // {
+    //     return view('projek.show', compact('projek'));
+    // }
+
+    public function update(Request $request, Kebiasaan $kebiasaan)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:255',
+            'gambar' => 'nullable|image',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            $imagePath = $request->file('gambar')->store('kebiasaan', 'public');
+            $kebiasaan->gambar = $imagePath;
+        }
+
+        $kebiasaan->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect()->route('kegiatanAdmin')->with('success', 'Data berhasil diperbarui!');
+    }
+
 
     // public function show(Projek $kebiasaan)
     // {
@@ -48,26 +76,6 @@ class KebiasaanController extends Controller
         return view('backend.admin.kebiasaan.edit', compact('kebiasaan'));
     }
 
-    public function update(Request $request, Kebiasaan $kebiasaan)
-    {
-        $request->validate([
-            'judul' => 'required',
-            'deskripsi' => 'required',
-            'gambar' => 'nullable|image',
-        ]);
-
-        if ($request->hasFile('gambar')) {
-            $imagePath = $request->file('gambar')->store('kebiasaan', 'public');
-            $kebiasaan->image = $imagePath;
-        }
-
-        $kebiasaan->update([
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-        ]);
-
-        return redirect()->route('kegiatanAdmin')->with('success', 'Data berhasil diperbarui!');
-    }
 
     public function destroy(Kebiasaan $kebiasaan)
     {

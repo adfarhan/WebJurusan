@@ -277,24 +277,24 @@
                         <div class="swiper-slide text-center">
                             <div class="logo-container">
                                 <img src="assets/img/logo.png" alt="Perusahaan 1" class="img-fluid company-logo">
-                                <div class="logo-overlay">Perusahaan 1</div>
+                                <div class="logo-overlay">SMKN 1 KAWALI</div>
                             </div>
                         </div>
                         <div class="swiper-slide text-center">
                             <div class="logo-container">
-                                <img src="assets/img/card.jpg" alt="Perusahaan 2" class="img-fluid company-logo">
+                                <img src="assets/img/logo.png" alt="Perusahaan 2" class="img-fluid company-logo">
                                 <div class="logo-overlay">Perusahaan 2</div>
                             </div>
                         </div>
                         <div class="swiper-slide text-center">
                             <div class="logo-container">
-                                <img src="assets/img/gambar1.jpg" alt="Perusahaan 3" class="img-fluid company-logo">
+                                <img src="assets/img/logo.png" alt="Perusahaan 3" class="img-fluid company-logo">
                                 <div class="logo-overlay">Perusahaan 3</div>
                             </div>
                         </div>
                         <div class="swiper-slide text-center">
                             <div class="logo-container">
-                                <img src="assets/img/gedungrpl.jpg" alt="Perusahaan 4" class="img-fluid company-logo">
+                                <img src="assets/img/logo.png" alt="Perusahaan 4" class="img-fluid company-logo">
                                 <div class="logo-overlay">Perusahaan 4</div>
                             </div>
                         </div>
@@ -402,7 +402,7 @@
                                     <!-- Menampilkan Judul -->
                                     <h5 class="card-title">{{ $beritas->title }}</h5>
                                     <!-- Menampilkan Konten (deskripsi) -->
-                                    <p class="card-text">{{ Str::limit($beritas->content, 80) }}</p>
+                                    <p class="card-text">{{ Str::limit($beritas->content, 40) }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Tombol untuk membuka Modal -->
                                         <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalBerita{{ $beritas->id }}">
@@ -423,12 +423,15 @@
                                         <h5 class="modal-title" id="modalLabel{{ $beritas->id }}">{{ $beritas->title }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <!-- Menampilkan Gambar Besar -->
+                                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                         <img src="{{ asset('storage/' . $beritas->image) }}" class="img-fluid mb-3" alt="{{ $beritas->title }}">
-                                        <!-- Menampilkan Konten Lengkap -->
-                                        <p>{{ $beritas->content }}</p>
+                                        <h3 class="text-center fw-bold fs-3 text-center">{{ $beritas->title }}</h3>
+                                        <p class="text-muted text-center" style="font-style: italic; font-size: 13px;">{{ \Carbon\Carbon::parse($beritas->publish_date)->format('d M Y') }}</p>
+                                        <p style="word-wrap: break-word; white-space: normal; font-size: 16px;">
+                                            {{ $beritas->content }}
+                                        </p>
                                     </div>
+                                    
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
@@ -436,7 +439,10 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="d-flex justify-content-center mt-4">
+                    <div class="d-flex flex-column align-items-center mt-4">
+                        <div class="pagination-info mb-2">
+                            Menampilkan {{ $berita->firstItem() }} sampai {{ $berita->lastItem() }} dari {{ $berita->total() }} hasil
+                        </div>
                         <div class="pagination-container">
                             {{ $berita->appends(['berita_page' => request('berita_page')])->fragment('berita')->links('pagination::bootstrap-4') }}
                         </div>
@@ -500,14 +506,22 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="d-flex justify-content-center mt-4">
+                    <div class="d-flex flex-column align-items-center mt-4">
+                        <div class="pagination-info mb-2">
+                            Menampilkan {{ $testimonis->firstItem() }} sampai {{ $testimonis->lastItem() }} dari {{ $testimonis->total() }} hasil
+                        </div>
                         <div class="pagination-container">
                             {{ $testimonis->appends(['testimoni_page' => request('testimoni_page')])->fragment('testimoni')->links('pagination::bootstrap-4') }}
                         </div>
-                    </div>                    
+                    </div>
+                    
                     <style>
+                        .pagination-info {
+                            font-size: 14px;
+                            color: #555;
+                        }
                         .pagination-container {
-                            margin-top: 20px;
+                            margin-top: 10px;
                             margin-bottom: 20px;
                         }
                         .pagination {
@@ -517,17 +531,19 @@
                             color: #000;
                             border-radius: 5px;
                             margin: 0 5px;
+                            border: 1px solid #ddd;
                         }
                         .pagination .page-item.active .page-link {
                             background-color: #fde616;
-                            color: white;
+                            color: #fff;
                             border-color: #fde616;
                         }
                         .pagination .page-item .page-link:hover {
                             background-color: #e5d00e;
-                            color: white;
+                            color: #fff;
                         }
                     </style>
+                    
                 </div>
             </div>
         </section>

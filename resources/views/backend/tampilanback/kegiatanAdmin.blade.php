@@ -60,27 +60,34 @@
                 </div>
             
                 <div class="card shadow-lg rounded-4 border-0">
-                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
-                        <h5 class="mb-0">Data Projek <span class="text-warning">RPL</span></h5>
+                    <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Projek <span class="text-warning fw-bold">RPL</span></h5>
+                        <a href="{{ route('projek.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> 
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive rounded-3 shadow-sm">
-                            <table class="table table-hover align-middle text-center">
+                            <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Judul Projek</th>
-                                        <th>Deskripsi</th>
-                                        <th>Foto</th>
-                                        <th>Aksi</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">No</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Judul Projek</th>
+                                        <th style="min-width: 300px; vertical-align: middle; white-space: nowrap;">Deskripsi</th>
+                                        <th style="min-width: 100px; vertical-align: middle; white-space: nowrap;">Foto</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($projek as $key => $tugas)
                                     <tr class="bg-light">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $projek->firstItem() + $key }}</td>
                                         <td>{{ $tugas->judul_projek }}</td>
-                                        <td>{{ $tugas->deskripsi }}</td>
+                                        <td class="text-start">
+                                            <div class="testimoni-text" style="max-height: 100px; overflow-y: auto; word-break: break-word; font-size: 13px;">
+                                                {{ $tugas->deskripsi }}
+                                            </div>
+                                        </td>
                                         <td>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal1{{ $tugas->id }}">
                                                 <img src="{{ asset('storage/' . $tugas->gambar) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
@@ -104,7 +111,9 @@
                                                 <a href="{{ route('projek.edit', $tugas->id) }}" class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('projek.destroy', $tugas->id) }}" method="POST" class="d-inline">
+
+                                                <form id="delete-form-{{ $tugas->id }}" action="{{ route('projek.destroy', $tugas->id) }}" method="POST" class="d-inline">
+
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $tugas->id }})">
@@ -124,9 +133,43 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-                        <a href="{{ route('projek.create') }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </a>
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $projek->firstItem() }} sampai {{ $projek->lastItem() }} dari {{ $projek->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{  $projek->appends(['projek_page' => request('projek_page')])->fragment('projek-admin')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-info {
+                                font-size: 14px;
+                                color: #555;
+                            }
+                            .pagination-container {
+                                margin-top: 10px;
+                                margin-bottom: 20px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                                border: 1px solid #ddd;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: #fff;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: #fff;
+                            }
+                        </style>
+
                     </div>
                 </div>
             </section>
@@ -139,27 +182,30 @@
                 </div>
             
                 <div class="card shadow-lg rounded-4 border-0">
-                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
-                        <h5 class="mb-0">Data Prestasi <span class="text-warning">RPL</span></h5>
-                    </div>
+                <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Data Prestasi <span class="text-warning fw-bold">RPL</span></h5>
+                    <a href="{{ route('prestasi.create') }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus"></i> 
+                    </a>
+                </div>
                     <div class="card-body">
                         <div class="table-responsive rounded-3 shadow-sm">
-                            <table class="table table-hover align-middle text-center">
+                             <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Nama</th>
-                                        <th>Kelas</th>
-                                        <th>Foto Prestasi</th>
-                                        <th>Tanggal</th>
-                                        <th>Deskripsi</th>
-                                        <th>Aksi</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">No</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Nama</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Kelas</th>
+                                        <th style="min-width: 100px; vertical-align: middle; white-space: nowrap;">Foto Prestasi</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Tanggal</th>
+                                        <th style="min-width: 300px; vertical-align: middle; white-space: nowrap;">Deskripsi</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($prestasis as $key => $pres)
                                     <tr class="bg-light">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $prestasis->firstItem() + $key }}</td>
                                         <td>{{ $pres->nama_siswa }}</td>
                                         <td>{{ $pres->kelas }}</td>
                                         <td>
@@ -180,14 +226,19 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $pres->tanggal }}</td>
-                                        <td>{{ $pres->deskripsi }}</td>
+
+                                        <td class="text-muted" style="font-size: 14px;">{{ \Carbon\Carbon::parse($pres->tanggal)->format('d/m/Y') }}</td>
+                                        <td class="text-start">
+                                            <div class="testimoni-text" style="max-height: 100px; overflow-y: auto; word-break: break-word; font-size: 13px;">
+                                                {{ $pres->deskripsi }}
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex justify-content-center gap-2">
                                                 <a href="{{ route('prestasi.edit', $pres->id) }}" class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('prestasi.destroy', $pres->id) }}" method="POST" class="d-inline">
+                                                <form id="delete-form-{{ $pres->id }}" action="{{ route('prestasi.destroy', $pres->id) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $pres->id }})">
@@ -207,9 +258,37 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-                        <a href="{{ route('prestasi.create') }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </a>
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $prestasis->firstItem() }} sampai {{ $prestasis->lastItem() }} dari {{ $prestasis->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{  $prestasis->appends(['prestasi_page' => request('prestasi_page')])->fragment('prestasi-admin')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-container {
+                                margin-top: 5px;
+                                margin-bottom: 5px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: white;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: white;
+                            }
+                        </style>
                     </div>
                 </div>
             </section>
@@ -223,27 +302,34 @@
                 </div>
             
                 <div class="card shadow-lg rounded-4 border-0">
-                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
-                        <h5 class="mb-0">Data Kebiasaan <span class="text-warning">RPL</span></h5>
+                    <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Kebiasaan <span class="text-warning fw-bold">RPL</span></h5>
+                        <a href="{{ route('kebiasaan.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> 
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive rounded-3 shadow-sm">
-                            <table class="table table-hover align-middle text-center">
+                            <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Judul Kebiasaan</th>
-                                        <th>Deskripsi</th>
-                                        <th>Foto</th>
-                                        <th>Aksi</th>
+                                        <th>No</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;"">Judul Kebiasaan</th>
+                                        <th style="min-width: 300px; vertical-align: middle; white-space: nowrap;">Deskripsi</th>
+                                        <th style="min-width: 100px; vertical-align: middle; white-space: nowrap;">Foto</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($kebiasaan as $key => $biasa)
                                     <tr class="bg-light">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $kebiasaan->firstItem() + $key }}</td>
                                         <td>{{ $biasa->judul }}</td>
-                                        <td>{{ $biasa->deskripsi }}</td>
+                                        <td class="text-start">
+                                            <div class="testimoni-text" style="max-height: 100px; overflow-y: auto; word-break: break-word; font-size: 13px;">
+                                                {{ $biasa->deskripsi }}
+                                            </div>
+                                        </td>
                                         <td>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal3{{ $biasa->id }}">
                                                 <img src="{{ asset('storage/' . $biasa->gambar) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
@@ -267,13 +353,15 @@
                                                 <a href="{{ route('kebiasaan.edit', $biasa->id) }}" class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('kebiasaan.destroy', $biasa->id) }}" method="POST" class="d-inline">
+
+                                                <form id="delete-form-{{ $biasa->id }}" action="{{ route('kebiasaan.destroy', $biasa->id) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $biasa->id }})">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form>
+
+                                                </form>                                                
                                             </div>
                                         </td>
                                     </tr>
@@ -287,9 +375,38 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-                        <a href="{{ route('kebiasaan.create') }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </a>
+<<<<<<< Updated upstream
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $kebiasaan->firstItem() }} sampai {{ $kebiasaan->lastItem() }} dari {{ $kebiasaan->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{  $kebiasaan->appends(['kebiasaan_page' => request('kebiasaan_page')])->fragment('kebiasaan-admin')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-container {
+                                margin-top: 5px;
+                                margin-bottom: 5px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: white;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: white;
+                            }
+                        </style>
                     </div>
                 </div>
             </section>

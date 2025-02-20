@@ -32,26 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Toggle elemen detail pada klik kartu
-    const cards = document.querySelectorAll(".card");
-    cards.forEach((card) => {
-        card.addEventListener("click", () => {
-            const targetId = card.getAttribute("data-target");
-            const targetElement = document.getElementById(targetId);
-
-            // Tutup semua elemen detail yang lain
-            document.querySelectorAll(".detail").forEach((detail) => {
-                if (detail !== targetElement) {
-                    detail.style.display = "none";
-                }
-            });
-
-            // Toggle tampilan elemen target
-            if (targetElement) {
-                targetElement.style.display =
-                    targetElement.style.display === "block" ? "none" : "block";
-            }
-        });
-    });
+    
 });
 
 // Carousel utama

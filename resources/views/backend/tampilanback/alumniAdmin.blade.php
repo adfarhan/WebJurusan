@@ -60,31 +60,60 @@
                 </div>
 
                 <div class="card shadow-lg rounded-4 border-0">
-                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
-                        <h5 class="mb-0">Data Profile Alumni <span class="text-warning">RPL</span></h5>
+
+                    <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Profile Alumni<span class="text-warning fw-bold">RPL</span></h5>
+                        <a href="{{ route('profil.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> 
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive rounded-3 shadow-sm">
-                            <table class="table table-hover align-middle text-center">
+                            <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>Angkatan</th>
                                         <th>Pekerjaan</th>
-                                        <th>Cerita Karir</th>
-                                        <th>Foto</th>
+                                        <th style="min-width: 200px;">Cerita Karir</th>
+                                        <th style="min-width: 100px;">Foto</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($profile as $key => $pro)
                                     <tr class="bg-light">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $profile->firstItem() + $key }}</td>
                                         <td>{{ $pro->nama }}</td>
                                         <td>{{ $pro->angkatan }}</td>
-                                        <td>{{ $pro->pekerjaan }}</td>
-                                        <td>{{ $pro->cerita_sukses }}</td>
+                                        <td style="vertical-align: middle; white-space: nowrap;">
+                                            <span style="
+                                                display: inline-flex;
+                                                align-items: center;
+                                                gap: 5px;
+                                                padding: 5px 12px;
+                                                background: #FFB300;
+                                                color: white;
+                                                border-radius: 20px;
+                                                font-size: 12px;
+                                                font-weight: bold;
+                                                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+                                                transition: transform 0.2s ease;
+                                                cursor: pointer;
+                                            " onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                                                <i class="fas fa-briefcase"></i> <!-- Ikon Pekerjaan -->
+                                                {{ $pro->pekerjaan }}
+                                            </span>
+                                        </td>
+                                        
+                                        
+                                        <td class="text-start">
+                                            <div class="testimoni-text" style="max-height: 100px; overflow-y: auto; word-break: break-word; font-size: 13px;">
+                                                {{ $pro->cerita_sukses }}
+                                            </div>
+                                        </td>
+
                                         <td>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal1{{ $pro->id }}">
                                                 <img src="{{ asset('storage/' . $pro->foto) }}" class="img-thumbnail" style="width: 80px; height: 60px;">
@@ -128,10 +157,39 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-                        <a href="{{ route('profil.create') }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </a>
-                    </div>
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $profile->firstItem() }} sampai {{ $profile->lastItem() }} dari {{ $profile->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{ $profile->appends(['profil_page' => request('profil_page')])->fragment('profile-admin')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-container {
+                                margin-top: 5px;
+                                margin-bottom: 5px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: white;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: white;
+                            }
+                        </style>
+                </div>
+
                 </div>
             </section>
 
@@ -142,30 +200,34 @@
                     <div class="underline mx-auto"></div>
                 </div>
             
-                <div class="card shadow-lg rounded-3 border-secondary">
-                    <div class="card-header text-center bg-dark text-light rounded-top">
-                        <h5 class="fw-bold mb-0">Data Alumni BMW <span class="text-warning">RPL</span></h5>
+                
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Alumni BMW<span class="text-warning fw-bold">RPL</span></h5>
+                        <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> 
+                        </a>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive border rounded shadow-sm">
+                        <div class="table-responsive rounded-3 shadow-sm">
                             <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-secondary text-light">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Angkatan</th>
-                                        <th>Bekerja</th>
-                                        <th>Melanjutkan Kuliah</th>
-                                        <th>Wirausaha</th>
-                                        <th>Total Siswa</th>
-                                        <th>Aksi</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">No</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Angkatan</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Bekerja</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Melanjutkan Kuliah</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Wirausaha</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Total Siswa</th>
+                                        <th style="vertical-align: middle; white-space: nowrap;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($alumnibmw as $bmw)
+                                    @forelse($alumnibmw as $key => $bmw)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $alumnibmw->firstItem() + $key }}</td>
                                             <td>{{ $bmw->angkatan }}</td>
-                                            <td>{{ $bmw->bekerja }} siswa</td>
+                                            <td style="min-width: 100px;">{{ $bmw->bekerja }} siswa</td>
                                             <td>{{ $bmw->melanjutkan }} siswa</td>
                                             <td>{{ $bmw->wirausaha }} siswa</td>
                                             <td>{{ $bmw->total }} siswa</td>
@@ -191,8 +253,43 @@
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer bg-white text-center">
-                        <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-sm fw-bold"><i class="bi bi-plus"></i> Tambah Data</a>
+                    <div class="card-footer bg-light text-center rounded-bottom-4">
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $alumnibmw->firstItem() }} sampai {{ $alumnibmw->lastItem() }} dari {{ $alumnibmw->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{  $alumnibmw->appends(['bmw_page' => request('bmw_page')])->fragment('bmw-admin')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-info {
+                                font-size: 14px;
+                                color: #555;
+                            }
+                            .pagination-container {
+                                margin-top: 10px;
+                                margin-bottom: 20px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                                border: 1px solid #ddd;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: #fff;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: #fff;
+                            }
+                        </style>
                     </div>
                 </div>
             </section>

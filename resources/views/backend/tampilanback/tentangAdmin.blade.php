@@ -50,6 +50,24 @@
                     opacity: 0;
                     transition: opacity 0.5s ease-out;
                 }
+                @media (max-width: 576px) {
+                    .img-staf {
+                        width: 60px !important;
+                        height: 60px;
+                    }
+                }
+                @media (max-width: 400px) {
+                    .img-staf {
+                        width: 50px;
+                        height: 50px !important;
+                    }
+                }
+                @media (max-width: 992px) { /* Tablet (max 992px) */
+                    .img-staf {
+                        width: 70px;
+                        height: 60px !important;
+                    }
+                }
             </style>
             
             <section class="staf-pengajar" id="staf-pengajar">
@@ -60,32 +78,35 @@
                 </div>
             
                 <div class="card shadow-lg rounded-4 border-0">
-                    <div class="card-header bg-dark text-light text-center rounded-top-4 p-3">
-                        <h5 class="mb-0">Data Staf Pengajar <span class="text-warning">RPL</span></h5>
+                    <div class="card-header bg-light text-dark rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Staf Pengajar <span class="text-warning fw-bold">RPL</span></h5>
+                        <a href="{{ route('pengajars.create') }}" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> 
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive rounded-3 shadow-sm">
-                            <table class="table table-hover align-middle text-center">
+                            <table class="table table-bordered table-hover text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>Jabatan</th>
                                         <th>Bidang</th>
-                                        <th>Foto</th>
+                                        <th style="min-width: 100px;">Foto</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($pengajars as $key => $guru)
                                     <tr class="bg-light">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pengajars->firstItem() + $key }}</td>
                                         <td>{{ $guru->nama }}</td>
                                         <td>{{ $guru->jabatan }}</td>
                                         <td>{{ $guru->bidang }}</td>
                                         <td>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal1{{ $guru->id }}">
-                                                <img src="{{ asset('storage/' . $guru->foto) }}" class="img-thumbnail" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+                                                <img src="{{ asset('storage/' . $guru->foto) }}" class="img-thumbnail img-staf" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
                                             </a>
                                             <div class="modal fade" id="imageModal1{{ $guru->id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ $guru->id }}" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
@@ -100,50 +121,27 @@
                                                     </div>
                                                 </div>
 
-                                            </td>
-                                            <td style="padding: 12px;">
-                                                <div class="d-flex gap-2">
-                                                    <!-- Tombol Edit -->
-                                                    <a href="{{ route('pengajars.edit', $guru->id) }}" class="btn btn-warning btn-sm" style="border: 3px solid #939090; border-radius: 10px; color:#fff"><i class="fas fa-edit"></i></a>
-                                                    
-                                                    <!-- Tombol Delete -->
-                                                    <form action="{{ route('pengajars.destroy', $guru->id) }}" method="POST" class="delete-form">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm delete-btn" style="border: 3px solid #939090; border-radius: 10px;">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    
-                                @endforeach
-                                @endif
-                                
-                                <!-- Footer -->
-                                <tfoot class="text-center" style="background: #5f5f58; color: #fff;">
-                                    <tr>
-                                        <td colspan="6" style="padding: 12px; font-weight: bold; font-size: 12px;">Data Data Staf Pengajar <span style="color: #fde616;">RPL</span></td>
-
-                                            </div>
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-center gap-2">
                                                 <a href="{{ route('pengajars.edit', $guru->id) }}" class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('pengajars.destroy', $guru->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('pengajars.destroy', $guru->id) }}" method="POST" class="delete-form d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $guru->id }})">
+                                                    <button type="button" class="btn btn-sm btn-danger delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
                                             </div>
                                         </td>
+                                        
                                     </tr>
+                                    </tbody>
+                                    
+                                
+                                <!-- Footer -->
                                     @empty
                                     <tr>
                                         <td colspan="6" class="text-center text-muted">Belum ada data staf pengajar tersedia.</td>
@@ -154,37 +152,71 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-                        <a href="{{ route('pengajars.create') }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </a>
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $pengajars->firstItem() }} sampai {{ $pengajars->lastItem() }} dari {{ $pengajars->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{  $pengajars->appends(['staf_page' => request('staf_page')])->fragment('staf-pengajar')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-info {
+                                font-size: 14px;
+                                color: #555;
+                            }
+                            .pagination-container {
+                                margin-top: 10px;
+                                margin-bottom: 20px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                                border: 1px solid #ddd;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: #fff;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: #fff;
+                            }
+                        </style>
                     </div>
                 </div>
             </section>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const deleteButtons = document.querySelectorAll(".delete-btn");
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".delete-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+            let form = this.closest(".delete-form");
 
-        deleteButtons.forEach((button) => {
-            button.addEventListener("click", function () {
-                Swal.fire({
-                    title: "Apakah Anda yakin?",
-                    text: "Data yang dihapus tidak dapat dikembalikan!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Ya, Hapus!",
-                    cancelButtonText: "Batal",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.closest("form").submit();
-                    }
-                });
+            Swal.fire({
+                title: "Apakah Anda yakin?",
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, Hapus!",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
         });
     });
+});
 </script>
+
 </x-layBack>
