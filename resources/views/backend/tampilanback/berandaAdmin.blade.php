@@ -139,10 +139,44 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-                        <a href="{{ route('berita.create') }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </a>
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-info mb-2">
+                                Menampilkan {{ $berita->firstItem() }} sampai {{ $berita->lastItem() }} dari {{ $berita->total() }} hasil
+                            </div>
+                            <div class="pagination-container">
+                                {{  $berita->appends(['berita_page' => request('berita_page')])->fragment('berita-admin')->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>                    
+                        <style>
+                            .pagination-info {
+                                font-size: 14px;
+                                color: #555;
+                            }
+                            .pagination-container {
+                                margin-top: 10px;
+                                margin-bottom: 20px;
+                            }
+                            .pagination {
+                                justify-content: center;
+                            }
+                            .pagination .page-item .page-link {
+                                color: #000;
+                                border-radius: 5px;
+                                margin: 0 5px;
+                                border: 1px solid #ddd;
+                            }
+                            .pagination .page-item.active .page-link {
+                                background-color: #fde616;
+                                color: #fff;
+                                border-color: #fde616;
+                            }
+                            .pagination .page-item .page-link:hover {
+                                background-color: #e5d00e;
+                                color: #fff;
+                            }
+                        </style>
                     </div>
+
                 </div>
             </section>
 

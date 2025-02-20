@@ -375,7 +375,6 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light text-center rounded-bottom-4">
-<<<<<<< Updated upstream
                         <div class="d-flex flex-column align-items-center mt-4">
                             <div class="pagination-info mb-2">
                                 Menampilkan {{ $kebiasaan->firstItem() }} sampai {{ $kebiasaan->lastItem() }} dari {{ $kebiasaan->total() }} hasil
